@@ -1,0 +1,73 @@
+package kr.or.ddit.servlet04;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.Properties;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kr.or.ddit.servlet01.DescriptionServlet;
+
+@WebServlet("/03/props/propsView.do")
+public class PropertiesControllerServlet extends HttpServlet{
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String accept = req.getHeader("Accept");
+		if(accept.toLowerCase().contains("json")) {
+			// 마샬링 native(DataStore.properties)-> json : marshalling
+			//{"prop1":"value1", ....}
+			Object target = retrieveData();
+			ObjectMapper mapper = new ObjectMapper();
+			// 1. marshalling
+			String json = mapper.writeValueAsString(target); //마샬링
+			resp.setContentType("application/json;charset=UTF-8"); //바디가 있으면 컨텐츠 타입이 있어야해서 셋팅해줌
+			try(
+					PrintWriter out = resp.getWriter();
+			){
+				// 2. serialization
+				out.print(json);
+			}//직렬화
+		} else if(accept.toLowerCase().contains("xml")){
+			Object target = retrieveData();
+			ObjectMapper mapper = new ObjectMapper();
+			
+			FileWriter writer = new FileWriter(file);
+			BufferedWriter bw = new BufferedWriter(writer);
+			
+			// 1. marshalling
+			String xml = mapper.writeValue(bw, target); //마샬링
+			resp.setContentType("application/json;charset=UTF-8"); //바디가 있으면 컨텐츠 타입이 있어야해서 셋팅해줌
+			try(
+					PrintWriter out = resp.getWriter();
+			){
+				// 2. serialization
+				out.print(xml);
+			}//직렬화
+		} else {
+			String path = "/WEB-INF/views/03/propsView.jsp";
+			req.getRequestDispatcher(path).forward(req, resp);
+		}
+	}
+	
+	private Object retrieveData() throws IOException{
+		
+		Properties properties = new Properties();
+		try(
+			InputStream is  = DescriptionServlet.class.getResourceAsStream("/kr/or/ddit/props/DataStore.properties");
+		){
+			properties.load(is);
+		}
+		return properties;
+	}
+}

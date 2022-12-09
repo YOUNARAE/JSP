@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+<h4>properties  파일 뷰어</h4>
+<!-- <img src="../../resources/images/cat1.jpg" /> -->
+
+<label>
+	<input type="radio" name="dataType" value="json" checked="checked"/>JSON
+</label>
+<label>
+	<input type="radio" name="dataType" value="xml"/>XML
+</label>
+<button type="button" class="loadData">LOAD DATA</button>
+<table border="3px">
+	<thead>
+		<tr>
+			<th>key</th>
+			<th>value</th>
+		</tr>
+	</thead>
+	<tbody id="listBody" >
+	
+	</tbody>
+</table>
+<script type="text/javascript">
+let listBody = $("#listBody");
+let dataTypes = $("input[name="dataType"]");
+let btn = $(".loadData").on("click",function(){
+	dataTypes.filter(":checked");	
+	$.ajax({
+			dataType : "xml",
+			success : function(resp) { //3,4의 작업이 끝나서 들어오는 게 resp->원형은 properties 형태였다는 의미다.		
+				let trTags = [];
+				$.each(resp,function(name, value){
+					let tr = $("<tr>").append(
+						$("<td>").html(name),	
+						$("<td>").html(value)		
+					);
+					trTags.push(tr);
+				})
+			
+				listBody.empty();
+				listBody.append(trTags);
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});	
+	}
+})
+</script>
+</body>
+</html>

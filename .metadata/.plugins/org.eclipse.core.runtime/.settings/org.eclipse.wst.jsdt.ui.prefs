@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+fontPropagated=true
+org.eclipse.jface.textfont=1|Consolas|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;
+org.eclipse.wst.jsdt.internal.ui.navigator.layout=1
+org.eclipse.wst.jsdt.ui.editor.tab.width=
+org.eclipse.wst.jsdt.ui.formatterprofiles.version=11
+org.eclipse.wst.jsdt.ui.javadoclocations.migrated=true
+org.eclipse.wst.jsdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="true" context\="javaScript" deleted\="false" description\="" enabled\="true" name\="ajaxCode">$$.ajax({&\#13;\r\n\t\t\t\turl \: "${cursor}",&\#13;\r\n\t\t\t\tmethod \: "",&\#13;\r\n\t\t\t\tdata \: {},&\#13;\r\n\t\t\t\tdataType \: "html",&\#13;\r\n\t\t\t\tsuccess \: function(resp) {&\#13;\r\n\t\t\t\t\tresultArea.html(resp);&\#13;\r\n\t\t\t\t},&\#13;\r\n\t\t\t\terror \: function(jqXHR, status, error) {&\#13;\r\n\t\t\t\t\tconsole.log(jqXHR);&\#13;\r\n\t\t\t\t\tconsole.log(status);&\#13;\r\n\t\t\t\t\tconsole.log(error);&\#13;\r\n\t\t\t\t}&\#13;\r\n\t\t\t});</template></templates>
+org.eclipse.wst.jsdt.ui.text.templates_migrated=true
+proposalOrderMigrated=true
+tabWidthPropagated=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

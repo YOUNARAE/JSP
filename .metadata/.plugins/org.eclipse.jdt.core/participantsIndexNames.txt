@@ -1,0 +1,15 @@
+INDEX VERSION 1.131
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\149847389.index
+\WebStudy01\src\main\java
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2145996235.index
+\WebStudy01\src\main\java
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3873447025.index
+\WebStudy01\src\main\java
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\641223274.index
+\WebStudy01\src\main\java
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3141702338.index
+\dummyWeb2\src\main\java
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1363114748.index
+\WebStudy01\src\main\java
+D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3358993222.index
+\WebStudy01\src\main\java

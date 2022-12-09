@@ -1,0 +1,58 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+<h4>properties  파일 뷰어</h4>
+<!-- <img src="../../resources/images/cat1.jpg" /> -->
+<table>
+	<thead>
+		<tr>
+			<th>key</th>
+			<th>value</th>
+		</tr>
+	</thead>
+	<tbody id="my_tbody">
+	</tbody>
+</table>
+<script type="text/javascript">
+	const SELECTTAG = $("[name=image]").on("change",function(event){ // 자바로 치면 final. 상수로 만든다
+		 let option = $(this).find("option:selected"); //옵션을 찾았음
+		 let mime = option.attr("class");
+		 let clzName = matchedClass(mime);
+		 $(this).removeClass(colors);
+		 $(this).addClass(clzName);
+		 
+		 let srcURL = document.imgForm.action;
+		 let queryString = $(document.imgForm).serialize();
+		 let src = "%U?%P".replace("%U",srcURL).replace("%P",queryString);
+		 
+		 let img = $("<img>").attr("src", src)
+		 DIVTAG.html(img);
+	}); 
+	$.ajax({
+		dataType : "json",
+		success:function(resp){
+			output='';
+			let options = [];
+			$.each(resp,function(index,item){
+				output+= '<tr>';
+				output+= '<td>'+ item.value+ '</td>';
+				output+= '<td>' + 하세요 +'</td>';
+				output+= '</td>';
+			});
+			document.getElementById('my_tbody').innerHTML = output;
+		},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+</script>
+</body>
+</html>

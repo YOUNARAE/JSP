@@ -1,0 +1,30 @@
+package kr.or.ddit.marshalling;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class Marshalling {
+
+	@Before
+	public void setUp() throws Exception {
+		System.out.println("befor");
+	}
+
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void test1() {
+		System.out.println(1);
+	}
+	@Test
+	public void test2() {
+		System.out.println(2);
+	}
+
+}
