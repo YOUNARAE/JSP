@@ -1,0 +1,52 @@
+package kr.or.ddit.servlet05;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ddit.servlet04.service.PropertiesService;
+import kr.or.ddit.servlet04.service.PropertiesServiceImpl;
+
+@WebServlet("/04/getGreetingMessage")
+public class GetMessageControllerServlet extends HttpServlet{
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		1.요청분석(line, header, body)
+		String accept = req.getHeader("Accept");	
+//		2. 모델확보
+		Object message = retrieveMessage();	
+//		3. 모델 공유(setAttribute)
+		Map<String, Object> target = Collections.singletonMap("message", message);
+
+//		4. 뷰 선택
+		String viewName = null;
+		if(accept.contains("json")) {
+			viewName = "/jsonView.do";
+		} else if(accept.contains("xml")) {
+			viewName = "/xmlView.do";
+		} else if(accept.contains("plain")){
+			viewName = "/04/messageView.jsp"; //모델 선택
+		} else {
+			
+		}
+//		5. 뷰로 이동(redirect)
+		req.getRequestDispatcher(viewName).forward(req, resp); 
+	}
+
+	private Object retrieveMessage() {
+//      베이스 네임에는 확장자와 로케일도 포함이 안된다
+		String baseName = "kr.or.ddit.props.Message";
+		ResourceBundle bundle = ResourceBundle.getBundle(baseName);
+		return bundle.getString("hi");
+	}
+	
+}

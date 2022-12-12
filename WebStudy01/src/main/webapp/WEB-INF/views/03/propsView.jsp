@@ -41,8 +41,11 @@
 	}
 	let sucesses = {
 		json:function(resp){
+			console.log("resp",resp);
+			console.log("resp, target",resp.target);
+			
 			let trTags = [];
-			$.each(resp, function(name, value){
+			$.each(resp.target, function(name, value){
 				trTags.push(makeTrTag(name, value));
 			});
 			listBody.empty();
