@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>05/responseDesc.jsp</title>
+</head>
+<body>
+<h4>response(HttpServletResponse)</h4>
+<pre>
+	Http의 response packaging
+	1. Response Line
+	2. Response Header
+	3. Response Body(Content body, message body) :
+	
+	
+</pre>
+</body>
+</html>

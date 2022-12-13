@@ -1,0 +1,44 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.Date"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>05/autoRequest.jsp</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+<!-- 문제 : radio버튼을 이용해서 파일 형식에 맞게 출력될 수 있도록하고,시작,중단버튼을 이용해서
+          시간 제어가 가능해야한다. -->
+<h4>현재 서버의 시간 : <span class="timeArea"><%=Date()%></span></h4>
+<button class="controlBtn"  data-control-type="START">시작</button>
+<button class="controlBtn"  data-control-type="STOP">멈춤</button>
+<input type="radio" name="dataType" data-data-type="json" />JSON
+<input type="radio" name="dataType" data-data-type="text" />PLAIN
+<input type="radio" name="locale" value="<%=Locale.KOREAN.toLanguageTag()%>" checked />한국어
+<input type="radio" name="locale" value="<%=Locale.ENGLISH.toLanguageTag()%>" />영어
+<input type="radio" name="locale" value="<%=Locale.JAPANESE.toLanguageTag()%>" />일본어
+
+<script type="text/javascript">
+let timeArea = $("#timeArea");
+
+let sendRequest = function(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/05/getServerTime",
+		data : data,
+		dataType : dataType,
+			success : function(resp){
+				timeArea.html(resp.now);
+			},
+		error : function(jqXHR, status, error) {
+			console.log(jqXHR);
+			console.log(status);
+			console.log(error);
+		}
+	});
+}
+</script>
+</body>
+</html>

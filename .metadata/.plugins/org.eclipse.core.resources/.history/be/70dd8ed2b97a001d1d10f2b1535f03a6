@@ -1,0 +1,8 @@
+package kr.or.ddit.servlet05;
+
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/05/getServerTime")
+public class GetServerTimeControllerServlet {
+
+}
