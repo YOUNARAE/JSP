@@ -48,7 +48,6 @@
 		<%
 		String userAgent = request.getHeader("user-Agent");
 		out.println(userAgent);
-
 		%>
 	
 	3. Request Body(optional) : POST, PUT

@@ -15,7 +15,8 @@ public class GetServerTimeControllerServletCopy extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		2
+
+		//2
 		Date now = new Date();
 		String nowStr = String.format(Locale.CANADA, "now : %tc",now);
 		req.setAttribute("now", nowStr);//toString()

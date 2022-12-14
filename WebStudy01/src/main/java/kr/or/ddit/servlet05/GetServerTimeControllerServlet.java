@@ -26,17 +26,17 @@ public class GetServerTimeControllerServlet extends HttpServlet{
 		}
 
 		
-		//2
+		//2. 모델확보
 		Date now = new Date();
 //		String nowStr = String.format(Locale.CANADA, "now : %tc",now); <--여기에 clientLocale를 써먹는다
 		String nowStr = String.format(clientLocale, "now : %tc",now);
 		
-		//3
+		//3. 모델 공유(setAttribute)
 		req.setAttribute("now", nowStr);//toString()
 		req.setAttribute("message", nowStr);
 		resp.setHeader("Refresh", "1");
 		
-		//4
+		//4. 뷰 선택
 		//헤더 accept에 따라 viewName이 변경되어야한다
 		String viewName = null;
 		if(accept.contains("json")) {

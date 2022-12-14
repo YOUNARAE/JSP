@@ -1,6 +1,5 @@
-<%@page import="javax.print.attribute.HashPrintServiceAttributeSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" buffer="7kb"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,7 @@
 <pre>
 	Http의 response packaging
 	1. Response Line : Status Code(응답상태코드, XXX)
-	    100~ : ..ING... 
+	    100~ : ..ING... ->웹소켓 프로토콜과 관련
 	    200~ : OK 
 	    300~ : 최종 처리하기 위하 클라이언트의 추가 액션이 필요함. (response body가 없음.) 
 	    		-개발자가 직접 셋팅하지 않는다. 
