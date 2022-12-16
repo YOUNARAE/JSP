@@ -69,4 +69,16 @@ public class FileSystemMemoDAOImpl implements MemoDAO {
 		}
 	}
 
+	@Override
+	public int updateMemo(MemoVO memo) {
+		// 파일시스템으로 파일까지 수정해야한다. 그 작업은 serializeMemo에서 다 해줌
+		return 0;
+	}
+
+	@Override
+	public int deleteMemo(int code) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -6,12 +6,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="/includee/preScript.jsp" />
+<script src="<%=request.getContextPath() %>/resources/js/custom.js"></script>
 </head>
 <body>
 <h4>Restful(request)가 구성되어있을 때 리퀘스트를 구성하고 있는 구조들을 모두 가능한 사용하자는 의미) 기반의 메모 관리</h4>
-<form id="myForm" action="${pageContext.request.contextPath}/memo" method="post" onsubmit="return false;">
+<form name="memoForm" id="myForm" action="${pageContext.request.contextPath}/memo" method="post">
 	<input type="text" name="writer" placeholder="작성자" value=""/>
-	<input type="text" name="date" placeholder="작성일" value=""/>
+	<input type="date" name="date" placeholder="작성일" value=""/>
 	<textarea name="content"></textarea>
 	<input type="submit" value="등록" />
 </form>
@@ -49,37 +50,37 @@
   </div>
 </div>
 <script type="text/javascript">
-//등록 버튼을 누르면 글이 등록되게 한다
-//단 ajax를 이용해야함(비동기방식)
-//submit버튼의 공식적인 기능은 없애줘야한다(동기라서)
-//클릭하면 ajax를 이용하여 writer,content들의 내용들을 다 잡아서 보내야한다.
-//input태그 date에는 현재 시간이 들어가야한다.
-   $("#myForm").on("submit", function(event){
-      event.preventDefault();
-      console.log(this);
-      console.log($(this));
-      console.log($(this)[0][0].value);
-      console.log($(this)[0][1].value);
-      console.log($(this)[0][2].value);
-      console.log($(this).serialize());
+	//	$('[name="memoForm"]')
+	let memoForm = $(document.memoForm).on('submit', function(event){
+		event.preventDefault();
+	//		this == event.target
+	//		this != $(this)
+	//		$(this)
+		let url = this.action;
+		let method = this.method;
+// 		let data = $(this).serialize(); // writer=작성자&data=작성일&content=내용(QueryString) 파라미터는 원래 객체의 구조대로 유지될 수 없다
+		let data = $(this).serializeObject(); // writer=작성자&data=작성일&content=내용(QueryString) 파라미터는 원래 객체의 구조대로 유지될 수 없다
 
-      $.ajax({
-         url : "${pageContext.request.contextPath}/memo",
-         method : "post",
-         data : $(this).serialize(),
-         dataType : "json",
-         success : function(resp) {
-        	 makeListBody(resp.memoList);
-         },
-         error : function(jqXHR, status, error) {
-            console.log(jqXHR);
-            console.log(status);
-            console.log(error);
-         }
-      });
-      return false;
-   });
- 
+		// 	let memoForm = this;
+		$.ajax({
+			url : url,
+			method : method,
+			contentType : "application/json;charset=UTF-8", // request content-type
+			data : JSON.stringify(data), //json으로 편지를 써야해서 마샬링을 해야한다. 마샬링=stringify
+			dataType : "json", // request Accept, response content-type
+			success : function(resp) {
+				//갱신되는 내용들이 포함되어있어야한다. ->tbody를 갱신할 수 있어야함
+				makeListBody(resp.memoList);
+				memoForm[0].reset();
+			},
+			error : function(jqXHR, status, error) {
+				console.log(jqXHR);
+				console.log(status);
+				console.log(error);
+			}
+		});
+		return false;
+	});
 
 // 	EDD(Event Driven Development)
 	$("#exampleModal").on("show.bs.modal",function(event){

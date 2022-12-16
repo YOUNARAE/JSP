@@ -7,4 +7,6 @@
 		<item value="172" key="DIALOG_X_ORIGIN"/>
 		<item value="146" key="DIALOG_Y_ORIGIN"/>
 	</section>
+	<section name="completion_proposal_size">
+	</section>
 </section>

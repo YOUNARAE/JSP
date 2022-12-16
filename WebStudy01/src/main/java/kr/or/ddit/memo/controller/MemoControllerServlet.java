@@ -1,6 +1,8 @@
 package kr.or.ddit.memo.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import kr.or.ddit.memo.dao.FileSystemMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
@@ -52,27 +57,35 @@ public class MemoControllerServlet extends HttpServlet{
 	}
 	
 	
-	private MemoVO getMemoFromRequest(HttpServletRequest req) {
+	private MemoVO getMemoFromRequest(HttpServletRequest req) throws IOException {
 		//값을 가져와야한다. 현재 넣어야할 데이터들
 
-		String writer = req.getParameter("writer");
-		String content = req.getParameter("content");
-		String date = req.getParameter("date");
-	
-		//모델확보
-		MemoVO memo = new MemoVO();
-		
-		//그리고 다시 추가된 메모로 보여준다
-		//모델공유
-
-		memo.setWriter(writer);
-		memo.setContent(content);
-		memo.setDate(date);
-		
-		//인서트한 메모의 갯수로 업데이트가 되는지 아닌지를 체크할 수있다	
-		//dao.insertMemo(memo);
-		
+//		MemoVO memo = new MemoVO();
+//		memo.setWriter(req.getParameter("writer"));
+//		memo.setContent(req.getParameter("content"));
+//		memo.setDate(req.getParameter("date"));
+		String contentType = req.getContentType();
+		MemoVO memo = null;
+		if(contentType.contains("json")) {
+			try(
+				BufferedReader br = req.getReader(); // body content read 용 입력 스트림
+			){
+				memo = new ObjectMapper().readValue(br, MemoVO.class);
+			}
+		} else if(contentType.contains("xml")) {
+			try(
+					BufferedReader br = req.getReader(); // body content read 용 입력 스트림
+			){
+				memo = new XmlMapper().readValue(br, MemoVO.class);
+			}
+		} else {
+			memo = new MemoVO();
+			memo.setWriter(req.getParameter("writer"));
+			memo.setContent(req.getParameter("content"));
+			memo.setDate(req.getParameter("date"));
+		}
 		return memo;
+		
 	}
 
 	@Override
