@@ -83,7 +83,7 @@
 		</list>
 	</section>
 	<section name="SearchDialog">
-		<item value="org.eclipse.jdt.ui.JavaSearchPage" key="PREVIOUS_PAGE"/>
+		<item value="org.eclipse.rse.internal.files.ui.search.searchPage" key="PREVIOUS_PAGE"/>
 	</section>
 	<section name="org.eclipse.jdt.ui.JavaSearchResultPage">
 		<item value="1000" key="org.eclipse.jdt.search.resultpage.limit"/>
