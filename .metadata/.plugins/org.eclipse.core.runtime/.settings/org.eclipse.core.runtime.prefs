@@ -3,5 +3,5 @@ content-types/org.eclipse.jst.jsp.core.jspfragmentsource/charset=UTF-8
 content-types/org.eclipse.jst.jsp.core.jspsource/charset=UTF-8
 content-types/org.eclipse.jst.jsp.core.tagsource/charset=UTF-8
 content-types/org.eclipse.jst.jsp.core.tagxsource/charset=UTF-8
-content-types/org.eclipse.wst.html.core.htmlsource/file-names=sample.tmpl,imageForm.tmpl
+content-types/org.eclipse.wst.html.core.htmlsource/file-names=sample.tmpl,imageForm.tmpl,imageForm2.tmpl
 eclipse.preferences.version=1

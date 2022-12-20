@@ -10,6 +10,12 @@
 	<param-value>d:/contents/images</param-value>
   </context-param>
   
+  <!-- 내가 추가한 것 -->
+  <context-param>
+  	<param-name>targetFolder</param-name>
+	<param-value>d:/exam</param-value>
+  </context-param>
+  
   <servlet>
   	<servlet-name>ImageStreamingServlet</servlet-name>
   	<servlet-class>kr.or.ddit.servlet01.ImageStreamingServlet</servlet-class>
@@ -27,4 +33,19 @@
   <session-config>
  	<session-timeout>2</session-timeout>
   </session-config>
+  
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/errors/error500.jsp</location>
+  </error-page>
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/errors/error404.jsp</location>
+  </error-page>
+  
+  <error-page>
+  	<exception-type>java.lang.NullPointerException</exception-type>
+  	<location>/errers/errorNull.jsp</location>
+  </error-page>
 </web-app>
