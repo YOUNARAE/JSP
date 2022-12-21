@@ -7,4 +7,7 @@
 <typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.io(OutputStream.class[OutputStream" modifiers="1057" timestamp="1635742526225"/>
 <typeInfo handle="=WebStudy01/src\/main\/java&lt;kr.or.ddit.memo.dao{MemoDAO.java[MemoDAO" modifiers="513" timestamp="1671178339973"/>
 <typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.lang(Throwable.class[Throwable" modifiers="33" timestamp="1635742526225"/>
+<typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.lang(NullPointerException.class[NullPointerException" modifiers="33" timestamp="1635742526225"/>
+<typeInfo handle="=languageLab/src\/main\/java&lt;kr.or.ddit.designpattern.adapterpattern{Target.java[Target" modifiers="513" timestamp="1671520023584"/>
+<typeInfo handle="=WebStudy01/D:\/A_TeachingMaterial\/06.JSP_Spring\/workspace\/WebStudy01\/src\/main\/webapp\/WEB-INF\/lib\/jstl-1.2.jar&lt;javax.servlet.jsp.jstl.core(LoopTagStatus.class[LoopTagStatus" modifiers="1537" timestamp="1671598935706"/>
 </typeInfoHistroy>

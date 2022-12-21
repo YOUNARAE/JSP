@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * 그 파일들을 선택하여 COPY를 누르면 복사되어야한다, webapp에 09번 폴더에
  * 선택한 파일은 체크드가 표시되어야하고 토글 기능을 추가하여야 한다.
  */
-@WebServlet("/browsing/getFileList")
+@WebServlet("/browsing/getFileList.do")
 public class SpecificTargetFileBrwosingServlet_copy extends HttpServlet{
 	private ServletContext application;
 	
@@ -44,6 +44,12 @@ public class SpecificTargetFileBrwosingServlet_copy extends HttpServlet{
 		
 		//모델공유
 		req.setAttribute("files", fileList);
+		
+		//뷰선택
+		String viewName = "/jsonView.do";
+		
+		//뷰이동
+		//req.getRequestDispatcher(viewName).forma
 	}
 }
 
