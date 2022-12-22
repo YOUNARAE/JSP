@@ -32,7 +32,7 @@
 		논리연산자 : &&(and, short-curit), ||(or, , short-curkit), !(not);
 			${trun and true }, ${"true" and true}, ${true or "false" }, ${false or attr }, ${not attr } 
 		비교연산자 : &gt;(gt), &lt;(lt), &gt;=(ge), &lt;=(le), ==(eq), !=(ne)
-			${3 lt 4 }, ${4 ge 3 }, ${4 eq 3}, ${4 ne 3 } 
+				${3 lt 4 }, ${4 ge 3 }, ${4 eq 3}, <!-- ${4 ne 3 }  --> 
 		단항연산자 : empty , exist -> null -> length, size check
 		<% 
 			pageContext.setAttribute("attr", "  ");

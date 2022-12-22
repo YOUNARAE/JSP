@@ -29,10 +29,10 @@
 <pre>
 	Servlet[JSP] Container : 서블릿객체나 JSP 객체의 모든 관리 권한을 가진 주체(IoC-Inversion of Control:제어의 역전구조,제어권이 프레임워크로 넘어감).
 	
-	Scope : 웹 어플리케이션에서 데이터를 공유하기 위해 사용되는 저장 공간(Map%lt;String Object&gt;).
+	Scope : 웹 어플리케이션에서 데이터를 공유하기 위해 사용되는 저장 공간(자료구조)(Map%lt;String Object&gt;). 
 	Attribute : scope를 통해 공유되는 데이터(String name/Object value).
 	
-	: Scope라는 저장 공간을 소유한 기본 객체의 생명주기와 동일함.
+	: Scope라는 저장 공간을 소유한 기본 객체의 생명주기와 동일함. 사용할 일이 없어지면 바로 삭제하는 속성 : 플래시 어플래쉬
 	page scope : pageContext의 소유 공간, 현재 페이지에서만.
 	request scope : 해당 영역의 소유 요청 객체가 소멸될 때 함께 소멸됨.
 	session scope : 해당 영역을 소유한 세션 객체와 생명주기 동일.

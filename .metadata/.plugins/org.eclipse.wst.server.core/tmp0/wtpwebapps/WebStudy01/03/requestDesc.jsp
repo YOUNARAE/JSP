@@ -36,7 +36,6 @@
 	     	String requestURI = request.getRequestURI();
 	     	StringBuffer requestURL = request.getRequestURL();
 	     	String method = request.getMethod();
-	     	
 	     %>
 	     requestURI: <%=requestURI %>
 	     requestURL: <%=requestURL %>
