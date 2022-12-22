@@ -83,6 +83,9 @@ public class LoginProcessControllerServlet extends HttpServlet{
 			valid  = false;
 		}
 		// 이게 19개가 반복되어야해서 간단하게 하는 라이브러리가 필요해진다.
+		//commons-lang3-3.12.0.jar
+		//commons-lang3-3.12.0-javadoc.jar
+		//commons-lang3-3.12.0-sources.jar 이거 설치함자바리소스에
 		return valid;
 	}
 }
