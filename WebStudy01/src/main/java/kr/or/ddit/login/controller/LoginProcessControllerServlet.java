@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,6 +39,9 @@ public class LoginProcessControllerServlet extends HttpServlet{
 		}
 		String memId = req.getParameter("memId");
 		String memPass = req.getParameter("memPass");
+		//추가--
+		String saveId = req.getParameter("saveId");
+		//
 		MemberVO member = new MemberVO();
 		member.setMemId(memId); // ="memId" 이 두개가 같은 특성을 활용하면 이 코드 하나로 모든 19개의 변수값이 들어오게 할 수 있게 한다
 		member.setMemPass(memPass);
@@ -49,6 +53,19 @@ public class LoginProcessControllerServlet extends HttpServlet{
 		if(valid) {
 //			2. 인증단계
 			if(authenticate(member)) {
+				//추가
+				Cookie saveIdCookie = new Cookie("saveId", member.getMemId());
+//				ex)www.naver.com
+				saveIdCookie.setDomain("localhost");
+				saveIdCookie.setPath(req.getContextPath());
+				int maxAge = 0; //처음에 0으로 초기화하면 인증을 했을 때 조건을 만족하면 
+				
+				if(StringUtils.isNotBlank(saveId)) {
+					//쿠키는 무조건 만들어져야하고, 맥스에이지가 중요함
+					maxAge = 60*60*24*5;
+				}
+				saveIdCookie.setMaxAge(maxAge);
+				resp.addCookie(saveIdCookie);
 				session.setAttribute("authMember", member);
 				viewName = "redirect:/";
 			}else {

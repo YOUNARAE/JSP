@@ -15,14 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+import kr.or.ddit.memo.dao.DataBaseMemoDAOImpl;
 import kr.or.ddit.memo.dao.FileSystemMemoDAOImpl;
 import kr.or.ddit.memo.dao.MemoDAO;
 import kr.or.ddit.vo.MemoVO;
 
 @WebServlet("/memo")
 public class MemoControllerServlet extends HttpServlet{
-	// 의존관계(점선)을 형성해준다
-	private MemoDAO dao = FileSystemMemoDAOImpl.getInstance();
+//	의존관계(점선)을 형성해준다
+//	private MemoDAO dao = FileSystemMemoDAOImpl.getInstance();
+	private MemoDAO dao = DataBaseMemoDAOImpl.getInstance();
+//	private MemoDAO dao; //컨트롤러와의 결합력은 해결하지만 널포인트가 쓰며, 이 방식이 되려면 콘테이너 방식이 필요해진다.->스프링이 필요한 이유
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

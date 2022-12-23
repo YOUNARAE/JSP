@@ -1,1 +1,1 @@
-[[{"location":"D:\\B_Util\\5_5.Tomcat\\apache-tomcat-8.5.84\\lib\\servlet-api.jar","type":"JAR","hints":{}},"ABSENT"],[{"location":"D:\\B_Util\\2.Java\\JDK1.8","type":"JRE","hints":{}},"jre:jre:1.8.0"]]
+[[{"location":"D:\\A_TeachingMaterial\\06.JSP_Spring\\workspace\\WebStudy01\\src\\main\\webapp\\WEB-INF\\lib\\commons-dbcp2-2.9.0.jar","type":"JAR","hints":{}},"org.apache.commons:commons-dbcp2:2.9.0"],[{"location":"D:\\B_Util\\2.Java\\JDK1.8","type":"JRE","hints":{}},"jre:jre:1.8.0"]]

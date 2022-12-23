@@ -17,6 +17,7 @@
 	사용 단계
 	1. 쿠키 객체 생성(name, value)
 	2. 응답(헤더, set-cookie)에 포함시켜 전송
+	<!---->
 	<%
 		Cookie firstCookie = new Cookie("firstCookie", "firstValue");
 		response.addCookie(firstCookie); //리스판스에 first쿠키라는 이름으로 저장이 하나 됨.
@@ -36,7 +37,8 @@
 // 		longLiveCookie.setPath(request.getContextPath()); 
 		longLiveCookie.setPath("/");//콘텍스트루트 상관없이 로컬호스트면 다 사용할 수 있다는 주소의 의미 
 		longLiveCookie.setMaxAge(60*60*24*7);
-		//맥스에이지를 0으로 넣으면 이미 들어가있던 롱라이브쿠키가 삭제된다.
+		//맥스에이지를 0으로 넣으면 이미 들어가있던 롱라이브쿠키가 삭제된다. 맥스에이지의 특징
+		// 도메인과 패스의 공통점 : 요청을 보내주는 것을 결정하는 패턴구조나 패스의 구조로 이용할 수 있다 
 		response.addCookie(longLiveCookie);
 	%>
 	
