@@ -20,10 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *                                 
  * 6. 객체 직렬화 가능 
  * 
- *                                
- * 
+ * 회원관리를 위한 Domain Layer
  */
-
 public class MemberVO implements Serializable{
 	private String memId;
 	@JsonIgnore

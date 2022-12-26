@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=WebStudy01/D:\/B_Util\/5_5.Tomcat\/apache-tomcat-8.5.84\/lib\/servlet-api.jar&lt;javax.servlet(ServletContext.class[ServletContext" modifiers="1537" timestamp="1668573264000"/>
-<typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.io(FilenameFilter.class[FilenameFilter" modifiers="1537" timestamp="1635742526225"/>
-<typeInfo handle="=WebStudy01/src\/main\/java&lt;kr.or.ddit.servlet01{ImageStreamingFormServlet01.java[ImageStreamingFormServlet01" modifiers="1" timestamp="1669939332089"/>
-<typeInfo handle="=WebStudy01/src\/main\/java&lt;kr.or.ddit.servlet04.service{PropertiesService.java[PropertiesService" modifiers="513" timestamp="1670825404639"/>
-<typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.io(OutputStream.class[OutputStream" modifiers="1057" timestamp="1635742526225"/>
-<typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.lang(Throwable.class[Throwable" modifiers="33" timestamp="1635742526225"/>
-<typeInfo handle="=WebStudy01/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.lang(NullPointerException.class[NullPointerException" modifiers="33" timestamp="1635742526225"/>
-<typeInfo handle="=languageLab/src\/main\/java&lt;kr.or.ddit.designpattern.adapterpattern{Target.java[Target" modifiers="513" timestamp="1671520023584"/>
-<typeInfo handle="=WebStudy01/D:\/A_TeachingMaterial\/06.JSP_Spring\/workspace\/WebStudy01\/src\/main\/webapp\/WEB-INF\/lib\/jstl-1.2.jar&lt;javax.servlet.jsp.jstl.core(LoopTagStatus.class[LoopTagStatus" modifiers="1537" timestamp="1671598935706"/>
-<typeInfo handle="=WebStudy01/src\/main\/java&lt;kr.or.ddit.servlet09.dao{DataBasePropertyDAO.java[DataBasePropertyDAO" modifiers="513" timestamp="1671773459034"/>
-<typeInfo handle="=WebStudy01/D:\/A_TeachingMaterial\/06.JSP_Spring\/workspace\/WebStudy01\/src\/main\/webapp\/WEB-INF\/lib\/ojdbc6.jar&lt;oracle.jdbc.dcn(DatabaseChangeRegistration.class[DatabaseChangeRegistration" modifiers="1537" timestamp="1671759189868"/>
-<typeInfo handle="=WebStudy01/src\/main\/java&lt;kr.or.ddit.memo.dao{MemoDAO.java[MemoDAO" modifiers="513" timestamp="1671178339973"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>
