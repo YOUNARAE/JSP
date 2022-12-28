@@ -41,7 +41,7 @@ public interface MemberDAO {
 	 * @param member
 	 * @return
 	 */
-	public int updatdMember(MemberVO member);
+	public int updateMember(MemberVO member);
 	//누군가는 전화번호를 수정하고, 누군가는 내용을 수정하기때문에 MemberVO를 파라미터로 받는다
 
 	/**

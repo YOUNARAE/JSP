@@ -2,7 +2,20 @@ package kr.or.ddit.vo;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+
+//랭스와 사이즈 중에 프레임워크의 종속성을 최대한 갖지 않도록 하기 위해 size로 선택했다.
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import kr.or.ddit.validate.DeleteGroup;
+import kr.or.ddit.validate.InsertGroup;
+import kr.or.ddit.validate.UpdateGroup;
 
 /**
  * 
@@ -23,26 +36,43 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 회원관리를 위한 Domain Layer
  */
 public class MemberVO implements Serializable{
+	// 그룹이 2개가 필요한데 가입할 때 검증해야하는 거, 가입,수정할 때 검증해야하는 것
+	@NotBlank(groups= {Default.class, DeleteGroup.class}) //자카르타 벨리데이션 (groups= {InsertGroup.class, UpdateGroup.class})
 	private String memId;
+	@NotBlank(groups= {Default.class, DeleteGroup.class})
+	@Size(min=4, max=8, groups={Default.class, DeleteGroup.class}) // 4글자 이상 8글자 이하
+	@Size
 	@JsonIgnore
 	private transient String memPass;
+	@NotBlank
 	private String memName;
 	@JsonIgnore
 	private transient String memRegno1;
 	@JsonIgnore
 	private transient String memRegno2;
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}", groups=InsertGroup.class)
+	//regexp : 정규표현식이라는 뜻
+	@NotBlank(groups=InsertGroup.class) //가입할 때만 검증하는 것
 	private String memBir;
+	@NotBlank
 	private String memZip;
+	@NotBlank
 	private String memAdd1;
+	@NotBlank
 	private String memAdd2;
 	private String memHometel;
 	private String memComtel;
 	private String memHp;
+	@Email
 	private String memMail;
 	private String memJob;
 	private String memLike;
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}")
 	private String memMemorial;
 	private String memMemorialday;
+	@Min(0)
+	//value라고 써있으면 값을 '' 없이 넣을 수 있다.
+	//낫블랭크는 스트랑타입으로 쓸 수는 없다
 	private Integer memMileage;
 	private String memDelete;
 	

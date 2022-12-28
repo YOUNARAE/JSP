@@ -4,6 +4,8 @@ import java.util.List;
 
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.UserNotFoundException;
+import kr.or.ddit.login.service.AuthenticateServiceImpl;
+import kr.or.ddit.login.service.AuthuenticateService;
 import kr.or.ddit.member.dao.MemberDAO;
 import kr.or.ddit.member.dao.MemberDAOImpl;
 import kr.or.ddit.vo.MemberVO;
@@ -13,6 +15,8 @@ public class MemberServiceImpl implements MemberService {
 	//이 코드에 의해서 결합력이 최상으로 발생한다.
 	private MemberDAO memberDAO = new MemberDAOImpl();
 	//싱글톤을 쓰지 않을 것이다. 차후에 스프링 프레임워크를 사용해서 대신 구현할 예정
+	//또다른 비즈니스 로직을 사용해도 된다
+	private AuthuenticateService authService = new AuthenticateServiceImpl();
 	
 	
 	@Override
@@ -56,14 +60,40 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ServiceResult modifyMember(MemberVO member) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberVO inputData = new MemberVO();
+		inputData.setMemId(member.getMemId());
+		inputData.setMemPass(member.getMemPass());
+		
+		ServiceResult result = authService.authenticate(inputData);
+		if(ServiceResult.OK.equals(result)) {
+			int rowcnt = memberDAO.updateMember(member);
+			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		}
+		return result;
 	}
 
 	@Override
 	public ServiceResult removeMember(MemberVO member) {
-		// TODO Auto-generated method stub
-		return null;
+		// 존재 부(NOTEXIST), 비번 인증 실패(INVALIDPASSWORD), 성공(OK), 실패(FAIL)
+		MemberVO inputData = new MemberVO();
+		inputData.setMemId(member.getMemId()); //내가 로그인한 아이디
+		inputData.setMemPass(member.getMemPass()); // 내가 view에서 입력한 비밀번호
+		
+		MemberVO memberData = retrieveMember(member.getMemId()); // 아이디로 조회할 수 있다. 아이디에 해당하는 회원에 대한 모든 정보, 비밀번호를 꺼내써서 대조하려고 생성했다
+		
+		ServiceResult result = authService.authenticate(inputData);
+//		if(그런 회원이 존재하지 않을 경우) {
+//			//이건 어차피 로그인할 때 처리해주었다
+//		}
+		if(memberData.getMemPass()!=member.getMemPass()) {
+			result = ServiceResult.INVALIDPASSWORD;
+		}
+		if(ServiceResult.OK.equals(result)) {
+			int rowcnt = memberDAO.deleteMember(member.getMemId());
+			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
+		}
+		return result;
+
 	}
 
 }

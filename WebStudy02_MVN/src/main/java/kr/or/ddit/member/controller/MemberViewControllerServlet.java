@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
+import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.vo.MemberVO;
 import kr.or.ddit.vo.MemoVO;
 
@@ -35,13 +36,15 @@ public class MemberViewControllerServlet extends HttpServlet{
 		//3.
 		req.setAttribute("member",member);
 		//4. 뷰 선택
-		String viewName="/WEB-INF/views/member/memberView.jsp";		
-		//5. 뷰 이동
-		if(viewName.startsWith("redirect:")) {
-			viewName = viewName.substring("redirect:".length());
-			resp.sendRedirect(req.getContextPath() + viewName);
-		}else {
-			req.getRequestDispatcher(viewName).forward(req, resp);
-		}	
+		String viewName="member/memberView";		
+		
+		new InternalResourceViewResolver("/WEB-INF/views/",".jsp").resolveView(viewName, req, resp); 
+//		//5. 뷰 이동
+//		if(viewName.startsWith("redirect:")) {
+//			viewName = viewName.substring("redirect:".length());
+//			resp.sendRedirect(req.getContextPath() + viewName);
+//		}else {
+//			req.getRequestDispatcher(viewName).forward(req, resp);
+//		}	
 	}
 }

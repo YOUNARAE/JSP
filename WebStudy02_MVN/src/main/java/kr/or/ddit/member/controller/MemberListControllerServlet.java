@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
+import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.vo.MemberVO;
 
 @WebServlet("/member/memberList.do")
@@ -24,13 +25,15 @@ public class MemberListControllerServlet extends HttpServlet{
 		List<MemberVO> memberList = service.retrieveMemberList(); //리트리브멤버리스트를 통해 리스트를 받아온다
 		req.setAttribute("memberList", memberList); //내용을 넣어준다.(멤버리스트)
 //		4. 뷰네임결정
-		String viewName="/WEB-INF/views/member/memberList.jsp";		
-//		5.
-		if(viewName.startsWith("redirect:")) {
-			viewName = viewName.substring("redirect:".length());
-			resp.sendRedirect(req.getContextPath() + viewName);
-		}else {
-			req.getRequestDispatcher(viewName).forward(req, resp);
-		}	
+		String viewName="member/memberList";	
+		
+		new InternalResourceViewResolver("/WEB-INF/views/",".jsp").resolveView(viewName, req, resp); //포워드로 사용할때만이라서 
+////		5.
+//		if(viewName.startsWith("redirect:")) {
+//			viewName = viewName.substring("redirect:".length());
+//			resp.sendRedirect(req.getContextPath() + viewName);
+//		}else {
+//			req.getRequestDispatcher(viewName).forward(req, resp);
+//		}	
 	}
 }

@@ -18,72 +18,104 @@
 	<h4>회원가입하라</h4>
 	<table>
 		<tr>
-			<th>아이디</th>
-			<td><input type="text" name="memId" placeholder="아이디" required /></td>
+			<th>회원아이디</th>
+			<td><input class="form-control" type="text" 
+				name="memId" value="${member.memId}" /><span class="text-danger">${errors.memId}</span></td>
 		</tr>
 		<tr>
 			<th>비밀번호</th>
-			<td><input type="text" name="memPass" placeholder="비밀번호" /></td>
+			<td><input class="form-control" type="text" 
+				name="memPass" value="${member.memPass}" /><span
+				class="text-danger">${errors.memPass}</span></td>
 		</tr>
 		<tr>
 			<th>회원명</th>
-			<td><input type="text" name="memName" placeholder="회원명" value="${member.memName}"/></td>
+			<td><input class="form-control" type="text" 
+				name="memName" value="${member.memName}" /><span
+				class="text-danger">${errors.memName}</span></td>
 		</tr>
 		<tr>
-			<th>주민번호</th>
-			<td><input type="text" name="memRegno1" placeholder="주민번호 앞자리"/>-<input type="text" name="memRegno2" placeholder="주민번호 뒷자리"/></td>
+			<th>주민번호1</th>
+			<td><input class="form-control" type="text" name="memRegno1"
+				value="${member.memRegno1}" /><span class="text-danger">${errors.memRegno1}</span></td>
 		</tr>
 		<tr>
-			<th>생년월일</th>
-			<td><input type="date" name="memBir" placeholder="생년월일"/></td>
+			<th>주민번호2</th>
+			<td><input class="form-control" type="text" name="memRegno2"
+				value="${member.memRegno2}" /><span class="text-danger">${errors.memRegno2}</span></td>
+		</tr>
+		<tr>
+			<th>생일</th>
+			<td><input class="form-control" type="date" 
+				name="memBir" value="${member.memBir}" /><span class="text-danger">${errors.memBir}</span></td>
 		</tr>
 		<tr>
 			<th>우편번호</th>
-			<td><input type="text" name="memZip" placeholder="우편번호"></td>
+			<td><input class="form-control" type="text" 
+				name="memZip" value="${member.memZip}" /><span class="text-danger">${errors.memZip}</span></td>
 		</tr>
 		<tr>
-			<th>주소</th>
-			<td><input type="text" name="memAdd1" placeholder="주소">-<input type="text" name="memAdd2" placeholder="상세주소"></td>
+			<th>주소1</th>
+			<td><input class="form-control" type="text" 
+				name="memAdd1" value="${member.memAdd1}" /><span
+				class="text-danger">${errors.memAdd1}</span></td>
 		</tr>
 		<tr>
-			<th>집전화</th>
-			<td><input type="text" name="memHometel" placeholder="집전화"></td>
+			<th>주소2</th>
+			<td><input class="form-control" type="text" 
+				name="memAdd2" value="${member.memAdd2}" /><span
+				class="text-danger">${errors.memAdd2}</span></td>
 		</tr>
 		<tr>
-			<th>회사전화</th>
-			<td><input type="text" name="memComtel" placeholder="회사전화"></td>
+			<th>집전번</th>
+			<td><input class="form-control" type="text" name="memHometel"
+				value="${member.memHometel}" /><span class="text-danger">${errors.memHometel}</span></td>
 		</tr>
 		<tr>
-			<th>핸드폰번호</th>
-			<td><input type="text" name="memHp" placeholder="핸드폰번호"></td>
+			<th>회사전번</th>
+			<td><input class="form-control" type="text" name="memComtel"
+				value="${member.memComtel}" /><span class="text-danger">${errors.memComtel}</span></td>
+		</tr>
+		<tr>
+			<th>휴대폰</th>
+			<td><input class="form-control" type="text" name="memHp"
+				value="${member.memHp}" /><span class="text-danger">${errors.memHp}</span></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><input type="text" name="memMail" placeholder="이메일"></td>
+			<td><input class="form-control" type="text" name="memMail"
+				value="${member.memMail}" /><span class="text-danger">${errors.memMail}</span></td>
 		</tr>
 		<tr>
 			<th>직업</th>
-			<td><input type="text" name="memJob" placeholder="직업"></td>
+			<td><input class="form-control" type="text" name="memJob"
+				value="${member.memJob}" /><span class="text-danger">${errors.memJob}</span></td>
 		</tr>
 		<tr>
 			<th>취미</th>
-			<td><input type="text" name="memLike" placeholder="취미"></td>
+			<td><input class="form-control" type="text" name="memLike"
+				value="${member.memLike}" /><span class="text-danger">${errors.memLike}</span></td>
 		</tr>
 		<tr>
 			<th>기념일</th>
-			<td><input type="text" name="memMemorial" placeholder="기념일"></td>
+			<td><input class="form-control" type="text" name="memMemorial"
+				value="${member.memMemorial}" /><span class="text-danger">${errors.memMemorial}</span></td>
 		</tr>
 		<tr>
 			<th>기념일자</th>
-			<td><input type="date" name="memMemorialday" placeholder="기념일자"></td>
+			<td><input class="form-control" type="date"
+				name="memMemorialday" value="${member.memMemorialday}" /><span
+				class="text-danger">${errors.memMemorialday}</span></td>
 		</tr>
 		<tr>
 			<th>마일리지</th>
-			<td><input type="text" name="memMileage" placeholder="마일리지"></td>
+			<td><input class="form-control" type="number" name="memMileage"
+				value="${member.memMileage}" /><span class="text-danger">${errors.memMileage}</span></td>
 		</tr>
 		<tr>
 			<th>탈퇴여부</th>
-			<td><input type="text" name="memDelete" placeholder="탈퇴여부"></td>
+			<td><input class="form-control" type="text" name="memDelete"
+				value="${member.memDelete}" /><span class="text-danger">${errors.memDelete}</span></td>
 		</tr>
 		<tr>
 			<td>
