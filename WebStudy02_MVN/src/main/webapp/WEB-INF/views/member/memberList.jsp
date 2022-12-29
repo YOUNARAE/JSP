@@ -20,6 +20,7 @@
 			<th>휴대폰</th>
 			<th>거주지역</th>
 			<th>마일리지</th>
+			<th>구매건수</th>
 		</tr>
 	</thead>
 	<tbody id="listBody">
@@ -38,6 +39,7 @@
 					<td>${member.memHp }</td>
 					<td>${member.memAdd1 }</td>
 					<td>${member.memMileage }</td>
+					<td>${member.cartCount }</td>
 				</tr>
 				</c:forEach>
 			</c:when>

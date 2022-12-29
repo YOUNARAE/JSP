@@ -7,10 +7,15 @@
 <meta charset="UTF-8">
 <title>member/memberView.jsp</title>
 <jsp:include page="/includee/preScript.jsp"/>
+<c:if test = "${not empty message}">
+	<script type="text/javascript">
+		alert("${message}");
+	</script>
+	<c:remove var="message" scope="session"/>
+</c:if>
 </head>
 <body>
 <h4>회원 상세 보기</h4>
-<form method="post">
 	<table border="1">
 		<tbody>
 			<tr>
@@ -94,29 +99,82 @@
 				<c:if test="${sessionScope.authMember eq member }"> <!-- 세션스코프에 있는 로그인되어있는 아이디와 멤버에 저장되어있는 로그인정보 , vo에 아이디 비교하는 부분 -->
 					<td colspan="2">
 						<a href="<c:url value='/member/memberUpdate.do'/>">수정</a>
-						<a href="#" onclick="fn_delete();" >탈퇴</a>
-						<form method="post" action="<c:url value='/member/memberDelete.do'/>" id="deleteForm">
-							<input type="password" name="memPass" required"/>
-							<span class="text-danger">${errors.memPass}</span>
-						</form>
+						<a data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</a>
 					</td>
 				</c:if>
 			</tr>
+			<tr>
+				<th>구매기록</th>
+				<td>
+					<table>
+						<thead>
+							<tr>
+								<th>상품아이디</th>
+								<th>상품명</th>
+								<th>분류명</th>
+								<th>거래처명</th>
+								<th>구매가</th>
+								<th>판매가</th>
+								<th>마일리지</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:set var="prodList" value="${member.prodList}"/>
+							<c:choose>
+								<c:when test="${not empty prodList }">
+									<c:forEach items="${prodList }" var="prod">
+										<tr>
+											<td>
+												<c:url value="/prod/prodView.do" var="prodViewURL">
+													<c:param name="what" value="${prod.prodId }" />
+												</c:url>
+												<a href="${prodViewURL }">${prod.prodId}<a/></td>
+											<td>${prod.prodName}</td>
+											<td>${prod.lprodNm}</td>
+											<td>${prod.buyer.buyerName}</td>
+											<td>${prod.prodCost}</td>
+											<td>${prod.prodPrice}</td>
+											<td>${prod.prodMileage}</td>
+										</tr>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<tr>
+										<td colspan="7"> 구매기록 없음</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+						</tbody>
+						
+					</table>
+				</td>
+			</tr>
+			
 		</tbody>
 	</table>
-</form>
-<jsp:include page="/includee/postScript.jsp"/>
-<script type="text/javascript">
-function fn_delete(){
-	if( confirm("삭제할꺼냐하시겠습니까?") ){
-		$("#deleteForm").submit();
-	}else{
-		return false;
-	}
-}
-$('#btn_cancel').on('click',function(){
-	location.href="<%=request.getContextPath()%>/UsrClsList.do"
-});
-</script>
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form method="post" action="<c:url value='/member/memberDelete.do'/>">
+					<div class="modal-body">
+						<input type="password" name="memPass" required"/>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$('#exampleModal').on("hidden.bs.modal", function(evnet){
+// 		$(this).find("form").get(0)
+		$(this).find("form")[0].reset();
+		
+	});
+	</script>
+	<jsp:include page="/includee/postScript.jsp"/>
 </body>
 </html>

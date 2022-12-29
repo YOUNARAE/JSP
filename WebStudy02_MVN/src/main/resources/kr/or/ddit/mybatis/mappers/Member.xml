@@ -2,13 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.member.dao.MemberDAO">
 	<select id="selectMemberList" resultType="memberVO">
-		SELECT MEM_ID, MEM_NAME, MEM_MAIL, MEM_HP, MEM_ADD1, MEM_MILEAGE
-		FROM MEMBER
+<!-- 		SELECT MEM_ID, MEM_NAME, MEM_MAIL, MEM_HP, MEM_ADD1, MEM_MILEAGE -->
+<!-- 		FROM MEMBER -->
+		SELECT MEM_ID, MEM_NAME, MEM_HP, MEM_MAIL, MEM_HP, MEM_ADD1, MEM_MILEAGE
+		, (
+			select COUNT(DISTINCT CART_PROD) 
+			from CART 
+			Where CART_MEMBER = MEM_ID
+		) CART_COUNT
+		FROM MEMBER	
 	</select>
 	
-	<select id="selectMember" parameterType="String" resultType="memberVO">
-		SELECT * FROM member 
+	<resultMap type="MemberVO" id="memberMap" autoMapping="true"> <!-- 반환되는 타입은 리절트타입과 같아야함 -->
+		<id property="memId" column="MEM_ID"/> <!-- 식별자로 아이디가 있어야 중복을 제거한다 , 반드시 VO에서 이퀄스 구조가 있어야 가능하다-->
+		<!-- 아이디는 오토맵퍼 하면 안된다 -->
+<!-- 		<result property="memName" column="MEM_NAME"/> -->
+<!-- 		<result property="memPass" column="MEM_PASS"/> 자동적으로 이름 설정해줌-->
+<!-- 		<result property="prodList"/> has 매니관게는 이렇게 주면 안된다 -->
+		<collection property="prodList" ofType="ProdVO" autoMapping="true"><!-- 하나하나 값을 프로도에서 가져온다 -->
+<!-- 			<result property="prodName" column="PROD_NAME"/> autoMapping을 넣으면 이 설정이 필요가 없어짐 -->
+			<association property="buyer" javaType="BuyerVO" autoMapping="true"><!--  has a 관계, buyer타입이 뭔지 적어줘야함 -->
+<!-- 			<result property="buyerName" column=""/> -->
+			</association>
+		</collection>
+	</resultMap>
+	<select id="selectMember" parameterType="String" resultMap="memberMap"><!-- resultType="memberVO" -->
+		WITH CARTVIEW AS(
+			SELECT DISTINCT CART_MEMBER, CART_PROD <!-- 누가 어떤 물건을 두번샀는지를 여기서 중복제거 -->
+			FROM CART
+		), PRODVIEW AS(
+			SELECT PROD.*
+				, LPROD_NM
+				, BUYER.*
+			FROM PROD INNER JOIN LPROD ON (PROD_LGU = LPROD_GU)
+					  INNER JOIN BUYER ON (PROD_BUYER = BUYER_ID)
+		), CARTPROD AS(
+			SELECT CART_MEMBER
+				, PRODVIEW.*
+			FROM CARTVIEW INNER JOIN PRODVIEW ON (CART_PROD = PROD_ID)
+		)
+		
+		SELECT 
+			mem_id,    mem_pass,    mem_name,                         
+		    mem_regno1,    mem_regno2,                                
+		    to_char(mem_bir, 'YYYY-MM-DD') MEM_BIR,                   
+		    mem_zip,    mem_add1,    mem_add2,                        
+		    mem_hometel,    mem_comtel,    mem_hp,                    
+		    mem_mail,    mem_job,    mem_like,                        
+		    mem_memorial,                                             
+		    TO_CHAR(mem_memorialday, 'YYYY-MM-DD') mem_memorialday,   
+		    mem_mileage,                                              
+		    mem_delete            
+			, PROD_ID, PROD_NAME, PROD_COST, PROD_PRICE, PROD_MILEAGE
+			, LPROD_NM
+			, BUYER_NAME, BUYER_ADD1, BUYER_CHARGER
+		FROM MEMBER LEFT OUTER JOIN CARTPROD ON (MEM_ID = CART_MEMBER)
 		WHERE MEM_ID = #{memId}
+		
+		
 	</select>
 	
 	<insert id="insertMember" parameterType="MemberVO">
@@ -56,8 +107,12 @@
 	
 	</update>
 	
-	<delete id="deleteMember" parameterType="String">
-		DELETE FROM MEMBER WHERE MEM_ID = #{memId,jdbcType=VARCHAR} 
+<!-- 	DELETE FROM MEMBER WHERE MEM_ID = #{noname}  -->
+	<delete id="deleteMember" parameterType="String"> <!-- 값만 전달되고 이름은 의미가 없어짐, excuteUpdate로 처리되기 때문에 인서트,업데이트,딜리트 태그 든 뭐가 되도 상관없다 -->
+		UPDATE MEMBER
+		   SET 
+		   MEM_DELETE ='1'
+		   WHERE MEM_ID = #{noname}
 	</delete>
 	
 </mapper>

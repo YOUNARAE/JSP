@@ -78,7 +78,8 @@ public class LoginProcessControllerServlet extends HttpServlet{
 					viewName = "redirect:/login/loginForm.jsp";
 				}
 			}catch(UserNotFoundException e) {
-				session.setAttribute("message", "존재하지 않는 회원입니");
+				session.setAttribute("message", "존재하지 않는 회원입니다");
+				viewName = "redirect:/login/loginForm.jsp";
 			}
 			
 		}else {		

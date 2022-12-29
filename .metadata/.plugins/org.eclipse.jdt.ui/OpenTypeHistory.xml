@@ -1,9 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-<typeInfo handle="=WebStudy02_MVN/D:\/B_Util\/6.maven\/.m2\/repository\/org\/mybatis\/mybatis\/3.5.11\/mybatis-3.5.11.jar&lt;org.apache.ibatis.session(SqlSessionFactory.class[SqlSessionFactory" modifiers="1537" timestamp="1672101933034"/>
-<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.memo.dao{MemoDAO.java[MemoDAO" modifiers="513" timestamp="1672111194277"/>
-<typeInfo handle="=WebStudy02_MVN/D:\/B_Util\/6.maven\/.m2\/repository\/org\/lazyluke\/log4jdbc-remix\/0.2.7\/log4jdbc-remix-0.2.7.jar&lt;net.sf.log4jdbc(DriverSpy.class[DriverSpy" modifiers="33" timestamp="1672120838585"/>
-<typeInfo handle="=WebStudy02_MVN/D:\/B_Util\/6.maven\/.m2\/repository\/org\/mybatis\/mybatis\/3.5.11\/mybatis-3.5.11.jar&lt;org.apache.ibatis.type(JdbcType.class[JdbcType" modifiers="16433" timestamp="1672101933034"/>
-<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.mvc.view{ViewResolver.java[ViewResolver" modifiers="513" timestamp="1672190985770"/>
-<typeInfo handle="=WebStudy02_MVN/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;org.w3c.dom.css(ViewCSS.class[ViewCSS" modifiers="1537" timestamp="1635742526225"/>
-</typeInfoHistroy>
+<typeInfoHistroy/>

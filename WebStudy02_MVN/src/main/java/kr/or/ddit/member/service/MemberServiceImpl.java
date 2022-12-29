@@ -74,26 +74,25 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public ServiceResult removeMember(MemberVO member) {
-		// 존재 부(NOTEXIST), 비번 인증 실패(INVALIDPASSWORD), 성공(OK), 실패(FAIL)
-		MemberVO inputData = new MemberVO();
-		inputData.setMemId(member.getMemId()); //내가 로그인한 아이디
-		inputData.setMemPass(member.getMemPass()); // 내가 view에서 입력한 비밀번호
-		
-		MemberVO memberData = retrieveMember(member.getMemId()); // 아이디로 조회할 수 있다. 아이디에 해당하는 회원에 대한 모든 정보, 비밀번호를 꺼내써서 대조하려고 생성했다
-		
-		ServiceResult result = authService.authenticate(inputData);
-//		if(그런 회원이 존재하지 않을 경우) {
-//			//이건 어차피 로그인할 때 처리해주었다
-//		}
-		if(memberData.getMemPass()!=member.getMemPass()) {
-			result = ServiceResult.INVALIDPASSWORD;
-		}
-		if(ServiceResult.OK.equals(result)) {
-			int rowcnt = memberDAO.deleteMember(member.getMemId());
+//		// 존재 부(NOTEXIST), 비번 인증 실패(INVALIDPASSWORD), 성공(OK), 실패(FAIL)
+//		MemberVO inputData = new MemberVO();
+//		inputData.setMemId(member.getMemId()); // 내가 로그인한 아이디
+//		inputData.setMemPass(member.getMemPass()); // 내가 view에서 입력한 비밀번호
+//
+////	      MemberVO memberData = retrieveMember(member.getMemId()); // 아이디로 조회할 수 있다. 아이디에 해당하는 회원에 대한 모든 정보, 비밀번호를 꺼내써서 대조하려고 생성했다
+//
+		ServiceResult result = authService.authenticate(member);
+////	 if(그런 회원이 존재하지 않을 경우) {
+////	         //이건 어차피 로그인할 때 처리해주었다
+////	      }
+////	      if( !memberData.getMemPass().equals(member.getMemPass()) ) {
+////	         result = ServiceResult.INVALIDPASSWORD;
+////	      }
+		if (ServiceResult.OK.equals(result)) {
+			int rowcnt = memberDAO.deleteMember(member.getMemId()); //DAO를 통해 딜리트 처리를 할 수 있어야한다.
 			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		}
 		return result;
-
 	}
 
 }

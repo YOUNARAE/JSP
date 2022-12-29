@@ -15,7 +15,7 @@ import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.vo.MemberVO;
-import kr.or.ddit.vo.MemoVO;
+import kr.or.ddit.vo.ProdVO;
 
 @WebServlet("/member/memberView.do")
 public class MemberViewControllerServlet extends HttpServlet{
@@ -33,8 +33,10 @@ public class MemberViewControllerServlet extends HttpServlet{
 		}
 		//2.
 		MemberVO member = service.retrieveMember(memId);
+		
 		//3.
 		req.setAttribute("member",member);
+		
 		//4. 뷰 선택
 		String viewName="member/memberView";		
 		

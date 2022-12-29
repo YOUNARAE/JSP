@@ -74,7 +74,7 @@ public class MemberDAOImpl implements MemberDAO {
 		try(
 			SqlSession sqlSession = SqlSessionFactory.openSession(); //트렌젝션 시작
 		){
-			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
+			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class); //여기서 받아오는 프록시를 전역화시킬 것이다
 			int rowcnt = mapperProxy.deleteMember(memId);
 			sqlSession.commit(); //트렌젝션 종료
 			return rowcnt;

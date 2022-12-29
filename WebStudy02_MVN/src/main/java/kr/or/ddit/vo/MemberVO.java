@@ -1,6 +1,7 @@
 package kr.or.ddit.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -16,6 +17,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import kr.or.ddit.validate.DeleteGroup;
 import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.validate.UpdateGroup;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 
@@ -34,8 +41,45 @@ import kr.or.ddit.validate.UpdateGroup;
  * 6. 객체 직렬화 가능 
  * 
  * 회원관리를 위한 Domain Layer
+ * : 한 사람의 회원 정보(구매기록 포함)를 담기 위한 객체.
+ *   MEMBER(1) : PROD(N) -> Has many 관계로 표현이 되어야한다.
+ *   1 : 1 -> Has A 관계로 표현되어야한다.
+ *   
+ * **  데이터매퍼나 ORM 을 이용한 테이블 조인 방법
+ * ex) 회원 정보 상세 조회시 구매 상품 기록을 함께 조회함.
+ * 1. 대상 테이블 선택(대상이 되는 테이블을 고른다.)
+ * 		MEMBER, CART(CART_MEMBER, CART_PROD), PROD //CARTVO가 필요없던 건 양쪽 테이블에 정보들이 들어있어서. 
+ *      - 금액 총액을 구하라고 하면 케이스가 달라짐. cart도 VO를 만들어서 거기서 금액을 가져왔어야한다.
+ * 2. 각 테이블로부터 데이터를 바인딩할 VO를 설계
+ * 	    - MemberVO, ProdVO
+ * 3. 각 테이블의 relation을 VO 사이에 has 관계로 반영
+ * 		1(main Table) : N - has many, MemberVO has ProdVO(collection)
+ * 		1(main Table) : 1 - has a   , ProdVO has a BuyerVO
+ * 4. resultType 대신 resultMap 으로 바인딩 설정 (xml파일에서)
+ *		has many : collection
+ *		has a : association
+ *
+ * 
  */
+//롬북은 모든 걸 어노테이션으로 설정한다
+//사용하다가 옆에 아웃라인에 아무것도 안 들어가고 있다면 초기에 봤던 이클립스의 init 파일을 확인해서 설치되어있는지 봐야한다
+//@Getter
+//@Setter
+@ToString(exclude= {"memPass", "memRegno1", "memRegno2"})
+@EqualsAndHashCode(of="memId")
+@Data //직접적인 자바빈 규약을 만족시키는 어노테이션(이것만 써도 된다)
+@NoArgsConstructor //기본생성자를 생성한다
 public class MemberVO implements Serializable{
+	
+	//아이디랑 비번만 받는 생성자를 생성해서 기본생성자가 없어서 lombok으로 생성해준다
+	public MemberVO(@NotBlank(groups = { Default.class, DeleteGroup.class }) String memId,
+			@NotBlank(groups = { Default.class, DeleteGroup.class }) @Size(min = 4, max = 8, groups = { Default.class,
+					DeleteGroup.class }) @Size String memPass) {
+		super();
+		this.memId = memId;
+		this.memPass = memPass;
+	}
+	
 	// 그룹이 2개가 필요한데 가입할 때 검증해야하는 거, 가입,수정할 때 검증해야하는 것
 	@NotBlank(groups= {Default.class, DeleteGroup.class}) //자카르타 벨리데이션 (groups= {InsertGroup.class, UpdateGroup.class})
 	private String memId;
@@ -74,154 +118,12 @@ public class MemberVO implements Serializable{
 	//value라고 써있으면 값을 '' 없이 넣을 수 있다.
 	//낫블랭크는 스트랑타입으로 쓸 수는 없다
 	private Integer memMileage;
-	private String memDelete;
+	private boolean memDelete;
+	private int cartCount; //Integer를 쓰면 0인 사람들을 null로 받게 되는 여지를 주게 되기때문에 그냥 int로 하는 게 낫다.
 	
+	private List<ProdVO> prodList; //이렇게 넣으면 1사람이 딱 1상품만 구입할 수 있다.->그래서 타입을 List나 배열로
+//	has many 관계 (1:N) , 갖는다라고 표현하기때문에 has관계라고 표현해준다
 	
-	public String getMemId() {
-		return memId;
-	}
-	public void setMemId(String memId) {
-		this.memId = memId;
-	}
-	public String getMemPass() {
-		return memPass;
-	}
-	public void setMemPass(String memPass) {
-		this.memPass = memPass;
-	}
-	public String getMemName() {
-		return memName;
-	}
-	public void setMemName(String memName) {
-		this.memName = memName;
-	}
-	public String getMemRegno1() {
-		return memRegno1;
-	}
-	public void setMemRegno1(String memRegno1) {
-		this.memRegno1 = memRegno1;
-	}
-	public String getMemRegno2() {
-		return memRegno2;
-	}
-	public void setMemRegno2(String memRegno2) {
-		this.memRegno2 = memRegno2;
-	}
-	public String getMemBir() {
-		return memBir;
-	}
-	public void setMemBir(String memBir) {
-		this.memBir = memBir;
-	}
-	public String getMemZip() {
-		return memZip;
-	}
-	public void setMemZip(String memZip) {
-		this.memZip = memZip;
-	}
-	public String getMemAdd1() {
-		return memAdd1;
-	}
-	public void setMemAdd1(String memAdd1) {
-		this.memAdd1 = memAdd1;
-	}
-	public String getMemAdd2() {
-		return memAdd2;
-	}
-	public void setMemAdd2(String memAdd2) {
-		this.memAdd2 = memAdd2;
-	}
-	public String getMemHometel() {
-		return memHometel;
-	}
-	public void setMemHometel(String memHometel) {
-		this.memHometel = memHometel;
-	}
-	public String getMemComtel() {
-		return memComtel;
-	}
-	public void setMemComtel(String memComtel) {
-		this.memComtel = memComtel;
-	}
-	public String getMemHp() {
-		return memHp;
-	}
-	public void setMemHp(String memHp) {
-		this.memHp = memHp;
-	}
-	public String getMemMail() {
-		return memMail;
-	}
-	public void setMemMail(String memMail) {
-		this.memMail = memMail;
-	}
-	public String getMemJob() {
-		return memJob;
-	}
-	public void setMemJob(String memJob) {
-		this.memJob = memJob;
-	}
-	public String getMemLike() {
-		return memLike;
-	}
-	public void setMemLike(String memLike) {
-		this.memLike = memLike;
-	}
-	public String getMemMemorial() {
-		return memMemorial;
-	}
-	public void setMemMemorial(String memMemorial) {
-		this.memMemorial = memMemorial;
-	}
-	public String getMemMemorialday() {
-		return memMemorialday;
-	}
-	public void setMemMemorialday(String memMemorialday) {
-		this.memMemorialday = memMemorialday;
-	}
-	public Integer getMemMileage() {
-		return memMileage;
-	}
-	public void setMemMileage(Integer memMileage) {
-		this.memMileage = memMileage;
-	}
-	public String getMemDelete() {
-		return memDelete;
-	}
-	public void setMemDelete(String memDelete) {
-		this.memDelete = memDelete;
-	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((memId == null) ? 0 : memId.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		MemberVO other = (MemberVO) obj;
-		if (memId == null) {
-			if (other.memId != null)
-				return false;
-		} else if (!memId.equals(other.memId))
-			return false;
-		return true;
-	}
-	@Override
-	public String toString() {
-		return "MemberVO [memId=" + memId + ", memName=" + memName + ", memBir=" + memBir + ", memZip=" + memZip
-				+ ", memAdd1=" + memAdd1 + ", memAdd2=" + memAdd2 + ", memHometel=" + memHometel + ", memComtel="
-				+ memComtel + ", memHp=" + memHp + ", memMail=" + memMail + ", memJob=" + memJob + ", memLike="
-				+ memLike + ", memMemorial=" + memMemorial + ", memMemorialday=" + memMemorialday + ", memMileage="
-				+ memMileage + ", memDelete=" + memDelete + "]";
-	}
-	
+	//롬북은 이클립스에 써야하는 플러그인이라서 메이븐에서 추가하는 것이 아님
 	
 }

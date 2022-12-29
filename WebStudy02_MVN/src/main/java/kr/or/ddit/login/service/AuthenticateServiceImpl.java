@@ -18,7 +18,7 @@ public class AuthenticateServiceImpl implements AuthuenticateService {
 		MemberVO savedMember = memberDAO.selectMember(member.getMemId()); //memId는 파라미터로 받는 member에 있다.
 		//저장되어 있는 데이터, savedMember에는 멤버테이블에 있는 모든 자료를 가지고 있음
 		//필요한 건 아이디,패스워드
-		if(savedMember==null) 
+		if(savedMember==null || savedMember.isMemDelete()) //Boolean->boolean으로 바뀌면 getMemDelete가 아닌 is
 			throw new UserNotFoundException(String.format("%s 사용자 없음.", member.getMemId()));
 		
 		String inputPass = member.getMemPass();
