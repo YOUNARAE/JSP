@@ -1,49 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>member/memberList.jsp</title>
+<title>/prod/prodList.jsp</title>
 <jsp:include page="/includee/preScript.jsp"/>
 </head>
 <body>
-<h4>회원 목록 조회</h4>
-
 <table>
 	<thead>
 		<tr>
-			<th>일련번호</th>
-			<th>회원아이디</th>
-			<th>회원명</th>
-			<th>이메일</th>
-			<th>휴대폰</th>
-			<th>거주지역</th>
-			<th>마일리지</th>
-			<th>구매건수</th>
+			<th>일렬번호</th>
+			<th>상품분류</th>
+			<th>상품명</th>
+			<th>거래처명</th>
+			<th>구매가</th>
+			<th>판매가</th>
+			<th>상품구매자수</th>
 		</tr>
 	</thead>
-	<tbody id="listBody">
-		<c:set var="memberList" value="${pagingVO.dataList}"/>
+	<tbody>
+		<c:set var="prodList" value="${pagingVO.dataList }" />
 		<c:choose>
-			<c:when test="${not empty memberList }"><!-- 존재여부 확인 -->
-				<c:forEach items="${memberList }" var="member">
-				<tr>
-					<td>${member.rnum }</td>
-					<td>${member.memId }</td>
-					<td>
-						<c:url value="/member/memberView.do" var="viewURL">
-							<c:param name="who" value="${member.memId }"/>
-						</c:url>
-						<a href="${viewURL }">${member.memName }</a>
-					</td>
-					<td>${member.memMail }</td>
-					<td>${member.memHp }</td>
-					<td>${member.memAdd1 }</td>
-					<td>${member.memMileage }</td>
-					<td>${member.cartCount }</td>
-				</tr>
+			<c:when test="${not empty prodList }">
+				<c:forEach items="${prodList }" var="prod">
+					<tr>
+						<td>${prod.rnum }</td>
+						<td>${prod.lprodNm }</td>
+						<td>
+							<c:url value="/prod/prodView.do" var="viewURL">
+								<c:param name="who" value="${prod.prodId }"/>
+							</c:url>
+							<a href="${viewURL }">${prod.prodName }</a>
+						</td>
+						<td>${prod.buyer.buyerName}</td>
+						<td>${prod.prodCost }</td>
+						<td>${prod.prodPrice }</td>
+						<td>${prod.cartQty }</td>
+						
+					</tr>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -56,18 +53,16 @@
 	<tfoot>
 		<tr>
 			<td colspan="7">
-<!-- 			<a href="?page=1">1</a> pageContext가 물음표 앞에 생략 , startPage ~ endPage까지의 숫자가 필요하다  -->
 				${pagingVO.pagingHTML }
-				<div id="searchUI"><!-- action이 없다는 건 지금 주소를 다시 사용한다는 것 -->
-<!-- 				밑에 폼을 붙여서 지워도 됨	<input type="text" name="page" /> 언제나 여기서 page까지 3가지 파라미터가 넘어갈 수 있게 된다 -->
+				<div id="searchUI">
 					<select name="searchType">
 						<option value>전체</option>
-						<option value="name">이름</option>
-						<option value="address">주소1</option>
+						<option value="lprodNm">분류명</option>
+						<option value="buyerName">거래처명</option>
+						<option value="prodName">상품명</option>
 					</select>
 					<input type="text" name="searchWord" />
 					<input type="button" value="검색" id="searchBtn" /> 
-<!-- div로 바껴서 서밋 버튼의 존재 이유가 없어짐<input type="submit" value="검색" /> 요청이 발생할 때 방향은 리스트 컨트롤러, 발생하는 요청은 doGet, 파라미터, 서치 타입과 서치 워드 2개 -->
 				</div>
 			</td>
 		</tr>

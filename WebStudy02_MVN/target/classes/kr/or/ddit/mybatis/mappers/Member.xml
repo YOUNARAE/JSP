@@ -1,17 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.member.dao.MemberDAO">
-	<select id="selectMemberList" resultType="memberVO">
-<!-- 		SELECT MEM_ID, MEM_NAME, MEM_MAIL, MEM_HP, MEM_ADD1, MEM_MILEAGE -->
-<!-- 		FROM MEMBER -->
-		SELECT MEM_ID, MEM_NAME, MEM_HP, MEM_MAIL, MEM_HP, MEM_ADD1, MEM_MILEAGE
-		, (
-			select COUNT(DISTINCT CART_PROD) 
-			from CART 
-			Where CART_MEMBER = MEM_ID
-		) CART_COUNT
-		FROM MEMBER	
+	 <sql id="searchFrag">
+      <where><!-- 이 웨어는 if문을 한번이라도 만족하면 if문이 붙고 아니면 1번도 안 만들어진다 -->
+      <!-- 검색을 하고 있는지를 먼저 생각해야한다, 검색을 안할 수도 있다 심플컨디션이 있는 경우->검색키워드가있을 경우 --> -->
+         <if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)"> <!-- 싱글코테이션에 넣어서 리터럴로 비교하겠다는 의미 --> -->
+            <choose>
+               <when test="simpleCondition.searchType eq 'name'">
+                  INSTR(MEM_NAME, #{simpleCondition.searchWord}) > 0
+               </when>
+               <when test="simpleCondition.searchType eq 'address'">
+                  INSTR(MEM_ADD1, #{simpleCondition.searchWord}) > 0
+               </when>
+               <otherwise>
+                  INSTR(MEM_NAME, #{simpleCondition.searchWord}) > 0
+                  OR
+                  INSTR(MEM_ADD1, #{simpleCondition.searchWord}) > 0
+               </otherwise>
+            </choose>
+         </if>
+      </where>
+   </sql>
+
+
+	<select id="selectTotalRecord" resultType="int" parameterType="PagingVO"> <!-- 검색기능 where를 붙여야해서 파라미터 타입이 붙는다 -->
+		SELECT COUNT(*)
+		FROM MEMBER
+		<include refid="searchFrag" />
 	</select>
+
+	<select id="selectMemberList" resultType="MemberVO" parameterType="PagingVO">
+      SELECT B.*
+      FROM (
+         SELECT A.*, ROWNUM RNUM
+         FROM (
+            SELECT MEM_ID, MEM_NAME, MEM_MAIL, MEM_HP    
+               , MEM_ADD1, MEM_MILEAGE   
+               , (SELECT COUNT(DISTINCT CART_PROD) 
+                  FROM CART 
+                  WHERE CART_MEMBER = MEM_ID)  CART_COUNT              
+            FROM MEMBER
+            <include refid="searchFrag" />
+            ORDER BY ROWID DESC
+          ) A
+       ) B
+       <![CDATA[
+       WHERE RNUM >= #{startRow} AND RNUM <= #{endRow}
+       ]]>
+   </select>
+
 	
 	<resultMap type="MemberVO" id="memberMap" autoMapping="true"> <!-- 반환되는 타입은 리절트타입과 같아야함 -->
 		<id property="memId" column="MEM_ID"/> <!-- 식별자로 아이디가 있어야 중복을 제거한다 , 반드시 VO에서 이퀄스 구조가 있어야 가능하다-->
@@ -58,8 +95,6 @@
 			, BUYER_NAME, BUYER_ADD1, BUYER_CHARGER
 		FROM MEMBER LEFT OUTER JOIN CARTPROD ON (MEM_ID = CART_MEMBER)
 		WHERE MEM_ID = #{memId}
-		
-		
 	</select>
 	
 	<insert id="insertMember" parameterType="MemberVO">

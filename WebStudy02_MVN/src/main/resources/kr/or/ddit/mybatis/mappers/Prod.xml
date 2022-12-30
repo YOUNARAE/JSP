@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.prod.dao.ProdDAO">
+	<sql id="searchFrag">
+		<where><!-- 이 웨어는 if문을 한번이라도 만족하면 if문이 붙고 아니면 1번도 안 만들어진다 -->
+			<if test="simpleCondition neq null and @org.apache.commons.lang3.StringUtils@isNotBlank(simpleCondition.searchWord)"> <!-- 싱글코테이션에 넣어서 리터럴로 비교하겠다는 의미 -->
+				<choose>
+					<when test="simpleCondition.searchType eq 'lprodNm'">
+						INSTR(LPROD_NM, #{simpleCondition.searchWord}) > 0
+					</when>
+					<when test="simpleCondition.searchType eq 'buyer.buyerName'">
+						INSTR(BUYER_NAME, #{simpleCondition.searchWord}) > 0
+					</when>
+					<when test="simpleCondition.searchType eq 'prodName'">
+						INSTR(PROD_NAME, #{simpleCondition.searchWord}) > 0
+					</when>
+					<otherwise>
+						INSTR(LPROD_NM, #{simpleCondition.searchWord}) > 0
+						OR
+						INSTR(BUYER_NAME, #{simpleCondition.searchWord}) > 0
+						OR
+						INSTR(PROD_NAME, #{simpleCondition.searchWord}) > 0
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</sql>
+
+	<select id="selectTotalRecord" resultType="int" 
+		parameterType="PagingVO"> <!-- 검색기능 where를 붙여야해서 파라미터 타입이 붙는다 -->
+		SELECT COUNT(*)
+		FROM prodview
+		<include refid="searchFrag" />
+	</select>
+	
+	<select id="selectProdList" resultMap="prodMap" parameterType="PagingVO">
+      SELECT B.*
+	      FROM (
+	          SELECT A.*, ROWNUM RNUM
+	          FROM (
+	              WITH CARTVIEW AS (
+	                  SELECT CART_PROD, SUM(CART_QTY) CNT
+	                  FROM CART INNER JOIN PROD ON (CART_PROD = PROD_ID)
+	                  GROUP BY CART_PROD
+	                  ORDER BY 1 ASC
+	              )
+	              SELECT PROD_ID, PROD_LGU, PROD_NAME, BUYER_NAME, PROD_PRICE, PROD_SALE, CNT
+	              FROM   PRODVIEW LEFT OUTER JOIN CARTVIEW ON (PROD_ID = CART_PROD)
+	              <include refid="searchFrag"/>
+	              ORDER BY 1 ASC
+	          ) A
+	      ) B
+       <![CDATA[
+       WHERE RNUM >= #{startRow} AND RNUM <= #{endRow}
+       ]]>
+       <!-- 
+       SELECT B.*
+	FROM (	
+		SELECT A.*, ROWNUM RNUM
+		FROM (
+			SELECT
+			    A.prod_id,
+			    A.LPROD_NM,
+			    A.prod_name,
+			    A.prod_cost,
+			    A.prod_price
+			    , A.BUYER_NAME
+			    , B.cart_qty
+			FROM prodview A, cart B
+			<include refid="searchFrag" />
+			and A.prod_id=B.cart_prod
+		) A
+	) B
+<![CDATA[
+       WHERE RNUM >= #{startRow} AND RNUM <= #{endRow}
+       ]]>
+        -->
+	</select>
 
 	<resultMap type="ProdVO" id="prodMap" autoMapping="true"> 
 		<id property="prodId" column="PROD_ID"/> 

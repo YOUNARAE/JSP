@@ -9,6 +9,7 @@ import kr.or.ddit.login.service.AuthuenticateService;
 import kr.or.ddit.member.dao.MemberDAO;
 import kr.or.ddit.member.dao.MemberDAOImpl;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 public class MemberServiceImpl implements MemberService {
 	//주방장이 요리를 하려면 재료를 꺼내와야한다. 
@@ -44,8 +45,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> retrieveMemberList() {
-		List<MemberVO> memberList = memberDAO.selectMemberList();
+	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO) { //pagingVO에 심플컨디션있음
+		pagingVO.setTotalRecord(memberDAO.selectTotalRecord(pagingVO)); // 두번쨰 세터를 여기서 호출해줬다
+		List<MemberVO> memberList = memberDAO.selectMemberList(pagingVO); //페이징의 결과물 memberList
+		pagingVO.setDetaList(memberList); //여기서 필요한 모든 걸 갖게 되었다
+		
 	    return memberList;
 	}
 

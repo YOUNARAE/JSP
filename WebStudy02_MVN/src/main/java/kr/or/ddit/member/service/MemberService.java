@@ -5,6 +5,7 @@ import java.util.List;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.exception.UserNotFoundException;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 /**
  * 
@@ -21,7 +22,7 @@ public interface MemberService {
 	public ServiceResult createMember(MemberVO member);
 	//회원 한명 가입 시키려고 해서 멤버VO를 파라미터로 받고, 가입을 성공시켰는지 아닌지 체크하기 위해 타입은int로 정했다
 	
-	public List<MemberVO> retrieveMemberList();
+	public List<MemberVO> retrieveMemberList(PagingVO<MemberVO> pagingVO);
 	// 리스트라서 파라미터는 안 넣어도 된다
 	
 	/**

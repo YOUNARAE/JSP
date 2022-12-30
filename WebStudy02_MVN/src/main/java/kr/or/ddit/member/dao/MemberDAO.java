@@ -5,12 +5,15 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 /**
  * 
  * 회원관리(CRUD)를 위한 Persistence Layer
  */
 public interface MemberDAO {
+	public int selectTotalRecord(PagingVO<MemberVO> pagingVO); //조회 건수를 돌려받아서 int
+	
 	/**
 	 * 회원 신규 등록
 	 * @param member
@@ -22,9 +25,10 @@ public interface MemberDAO {
 	
 	/**
 	 * 회원 목록 조회
+	 * @param pagingVO TODO
 	 * @return size == 0인 경우, 조건에 맞는 레코드 없음
 	 */
-	public List<MemberVO> selectMemberList();
+	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO); //제네릭으로 멤버VO넣는다
 	//조건으로 아무것도 받지 않는다 . 조건에 맞는 전체 조회, MemberVO에서는 엔터티 하나를 받는다
 	
 	/**

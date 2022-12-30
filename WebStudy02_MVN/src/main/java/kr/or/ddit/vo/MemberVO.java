@@ -80,6 +80,8 @@ public class MemberVO implements Serializable{
 		this.memPass = memPass;
 	}
 	
+	private int rnum;
+	
 	// 그룹이 2개가 필요한데 가입할 때 검증해야하는 거, 가입,수정할 때 검증해야하는 것
 	@NotBlank(groups= {Default.class, DeleteGroup.class}) //자카르타 벨리데이션 (groups= {InsertGroup.class, UpdateGroup.class})
 	private String memId;
@@ -111,8 +113,8 @@ public class MemberVO implements Serializable{
 	private String memMail;
 	private String memJob;
 	private String memLike;
-	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}")
 	private String memMemorial;
+	@Pattern(regexp="\\d{4}-\\d{2}-\\d{2}")
 	private String memMemorialday;
 	@Min(0)
 	//value라고 써있으면 값을 '' 없이 넣을 수 있다.

@@ -10,7 +10,10 @@ import org.junit.Test;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MemberDAOImplTest {
 //	private MemberService service = new MemberServiceImpl();
 	private MemberDAO dao = new MemberDAOImpl();
@@ -31,17 +34,23 @@ public class MemberDAOImplTest {
 		dao.insertMember(member); //테스트 대상이 되는 것을 테스트 더미라고 한다
 	}
 
-//	@Test
+	@Test
 	public void testSelectMemberList() {
-		List<MemberVO> memberList = dao.selectMemberList();
+		PagingVO<MemberVO> pagingVO = new PagingVO<>();
+		pagingVO.setTotalRecord(dao.selectTotalRecord(pagingVO)); //db에서 값을 가져와준다.
+		pagingVO.setCurrentPage(2);
+		
+		List<MemberVO> memberList = dao.selectMemberList(pagingVO);
 		memberList.stream()
 				.forEach(System.out::println);
 //		List<MemberVO> memberList = service.retrieveMemberList();
 //		assertNotEquals(0, memberList.size());
+		pagingVO.setDetaList(memberList);
+		log.info("paging : {}", pagingVO);
 		
 	}
 
-	@Test
+//	@Test
 	public void testSelectMember() {
 		MemberVO member = dao.selectMember("a001");
 		System.out.println(member);

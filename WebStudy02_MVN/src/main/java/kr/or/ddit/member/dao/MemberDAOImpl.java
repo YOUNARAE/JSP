@@ -16,6 +16,7 @@ import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mybatis.MybatisUtils;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.PagingVO;
 
 public class MemberDAOImpl implements MemberDAO {
 		
@@ -36,16 +37,28 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 	}
 	
-
+	
+	//==페이징 처리할 땐 요 두녀석이 항상 세트다
 	@Override
-	public List<MemberVO> selectMemberList() {
+	public int selectTotalRecord(PagingVO<MemberVO> pagingVO) {
 		try(
 			SqlSession sqlSession = SqlSessionFactory.openSession();
 		){
 			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
-			return mapperProxy.selectMemberList();
+			return mapperProxy.selectTotalRecord(pagingVO); //페이징 처리에는 언제나 두개가 필요하다
 		}
 	}
+
+	@Override
+	public List<MemberVO> selectMemberList(PagingVO<MemberVO> pagingVO) {
+		try(
+			SqlSession sqlSession = SqlSessionFactory.openSession();
+		){
+			MemberDAO mapperProxy = sqlSession.getMapper(MemberDAO.class);
+			return mapperProxy.selectMemberList(pagingVO); //페이징 처리에는 언제나 두개가 필요하다
+		}
+	}
+	//==
 
 	@Override
 	public MemberVO selectMember(String memId) {
