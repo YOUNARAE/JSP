@@ -53,13 +53,12 @@
 		<tr>
 			<td colspan="7">
 				<div class="pagingArea">
-<%-- 					${pagingVO.pagingHTML } --%>
+					<%-- ${pagingVO.pagingHTML } --%>
 				</div>
 				<div id="searchUI">
 					<select name="prodLgu">
 						<option value>분류</option>
 						<c:forEach items="${lprodList }" var="lprod"> <!-- lprod로 접근하는 타입은Map이다 -->
-							
 							<option value="${lprod.lprodGu}">${lprod.lprodNm}</option>
 						</c:forEach>
 					</select>
@@ -95,7 +94,7 @@
 	//컨트롤러에서 객체 하나 만들어줘서 paginVO를 빼도 된다
 	$("[name=prodLgu]").on("change", function(){
 		let prodLgu = $(this).val(); //셀렉트 쿼리라서 바로 네임으로 못 꺼내니까 제이쿼리화 시켜서 val값으로 꺼낸다
-		prodBuyerTag.find("option:gt(0)").hide();
+		prodBuyerTag.find("option:gt(0)").hide(); // 0번째인 거 빼고는 다 hide
 		prodBuyerTag.find("option."+prodLgu).show();	
 	});
 // 	.val("${detailCondition.prodLgu}");

@@ -69,7 +69,7 @@ public class ProdListController implements AbstractController{
 		} //검색조건이 아무리 늘어도 prod 안에서 있으니까 맵으로 한꺼번에 넘긴다.
 		
 		int currentPage = 1; //page에 페이지가 없으면 1페이지이다.
-		if(StringUtils.isNumeric(pageParam)) { // 왜 뉴머릭을 쓰지?;;못들었다
+		if(StringUtils.isNumeric(pageParam)) { // 뉴머릭 : 값을 확인하는 용도로 쓴다.
 			currentPage = Integer.parseInt(pageParam);
 		}
 		
