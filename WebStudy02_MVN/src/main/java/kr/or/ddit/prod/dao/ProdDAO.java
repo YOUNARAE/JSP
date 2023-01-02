@@ -28,6 +28,6 @@ public interface ProdDAO {
 	 * @param pagingVO
 	 * @return
 	 */
-	public List<ProdVO> selectProdList(PagingVO<ProdVO> pagingVO); //모든 목록들 리스트가 페이징 처리가 되는 쿼리문 안에 있기때문에 타입은  pagingVO 가 된다
+	public List<ProdVO> selectProdList(PagingVO<ProdVO> pagingVO); //모든 목록 리스트가 페이징 처리가 되는 쿼리문 안에 있기때문에 타입은  pagingVO 가 된다
 	
 }

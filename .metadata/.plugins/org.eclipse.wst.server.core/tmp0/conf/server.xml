@@ -152,7 +152,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WebStudy02_MVN" path="/WebStudy02_MVN" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy02_MVN"/><Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\PostgresSql" path="/PostgresSql" reloadable="true" source="org.eclipse.jst.jee.server:PostgresSql"/></Host>
+      <Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WebStudy02_MVN" path="/WebStudy02_MVN" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy02_MVN"/></Host>
     </Engine>
   </Service>
 </Server>

@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+<typeInfo handle="=WebStudy02_MVN/src\/test\/java&lt;kr.or.ddit.prod.dao{ProdDAOImplTest.java[ProdDAOImplTest" modifiers="1" timestamp="1672621433204"/>
+<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.prod.service{ProdServiceImpl.java[ProdServiceImpl" modifiers="1" timestamp="1672621755780"/>
+<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.vo{PagingVO.java[PagingVO" modifiers="1" timestamp="1672625554732"/>
+<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.prod.dao{OthersDAO.java[OthersDAO" modifiers="513" timestamp="1672627230666"/>
+</typeInfoHistroy>
