@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=WebStudy02_MVN/src\/test\/java&lt;kr.or.ddit.prod.dao{ProdDAOImplTest.java[ProdDAOImplTest" modifiers="1" timestamp="1672621433204"/>
-<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.prod.service{ProdServiceImpl.java[ProdServiceImpl" modifiers="1" timestamp="1672621755780"/>
-<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.vo{PagingVO.java[PagingVO" modifiers="1" timestamp="1672625554732"/>
-<typeInfo handle="=WebStudy02_MVN/src\/main\/java&lt;kr.or.ddit.prod.dao{OthersDAO.java[OthersDAO" modifiers="513" timestamp="1672627230666"/>
+<typeInfo handle="=WebStudy03_MVC/D:\/B_Util\/6.maven\/.m2\/repository\/javax\/servlet\/javax.servlet-api\/3.1.0\/javax.servlet-api-3.1.0.jar&lt;javax.servlet.annotation(WebServlet.class[WebServlet" modifiers="9729" timestamp="1672046022086"/>
+<typeInfo handle="=WebStudy03_MVC/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.lang(Override.class[Override" modifiers="9729" timestamp="1635742526225"/>
+<typeInfo handle="=WebStudy03_MVC/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;java.lang.annotation(Target.class[Target" modifiers="9729" timestamp="1635742526225"/>
+<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.mvc.annotation{HandlerMapping.java[HandlerMapping" modifiers="513" timestamp="1672711951157"/>
+<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.mvc.annotation{HandlerAdapter.java[HandlerAdapter" modifiers="513" timestamp="1672715920830"/>
+<typeInfo handle="=WebStudy03_MVC/D:\/B_Util\/2.Java\/JDK1.8\/jre\/lib\/rt.jar&lt;javax.xml.ws.handler(Handler.class[Handler" modifiers="1537" timestamp="1635742526225"/>
+<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.login.controller{LoginProcessController.java[LoginProcessController" modifiers="1" timestamp="1672729310392"/>
+<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.mvc.annotation.resolvers{HandlerMethodArgumentResolver.java[HandlerMethodArgumentResolver" modifiers="513" timestamp="1672726510375"/>
 </typeInfoHistroy>

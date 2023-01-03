@@ -19,6 +19,7 @@ import kr.or.ddit.member.controller.MemberListController;
 import kr.or.ddit.member.controller.MemberViewController;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.mvc.view.ViewResolver;
+import kr.or.ddit.prod.controller.ProdInsertContoller;
 import kr.or.ddit.prod.controller.ProdListController;
 
 public class DispatcherServlet extends HttpServlet{
@@ -55,7 +56,9 @@ public class DispatcherServlet extends HttpServlet{
 			controller = new LoginProcessController();
 		} else if("/login/logout.do".equals(requestURI)) {
 			controller = new LogoutController();
-		}
+		} else if("/prod/prodInsert.do".equals(requestURI)) {
+			controller = new ProdInsertContoller(); //이 한줄에 의해서 의존관계와 결합력이 생긴다.
+		} //문제점 : 여기서만이 서블릿의 역할을 확인할 수 있다.
 		
 		if(controller==null) {
 			//위 조건에 포함되지 않는 것, 일식과 한식은 팔지만 중식은 안 팔아!
