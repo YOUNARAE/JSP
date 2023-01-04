@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import kr.or.ddit.validate.UpdateGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -18,33 +23,49 @@ import lombok.ToString;
 public class ProdVO implements Serializable{
 	
 	private int rnum; //null인 경우를 빼야해서 Integer가 아닌 int다
-	
+	@NotBlank(groups=UpdateGroup.class)
 	private String prodId;
+	@NotBlank
 	private String prodName;
 	
+	@NotBlank
 	private String prodLgu;
 	private String lprodNm; // lprod네임만 가져와도 되서
 	
+	@NotBlank
 	private String prodBuyer;
 	private BuyerVO buyer; // has a , buyer를 이용해 갖고올 데이터들이 많다. 단순 바인딩 구조가 아니라서 xml에서 헤즈관계를 만들어준다
-//	private int cartQty;
 	
-	private String prodCost;
-	private String prodPrice;
-	private String prodSale;
+	@NotNull
+	@Min(0)
+	private Integer prodCost;
+	@NotNull
+	@Min(0)
+	private Integer prodPrice;
+	@NotNull
+	@Min(0)
+	private Integer prodSale;
+	@NotBlank
 	private String prodOutline;
+	
 	private String prodDetail;
+	@NotBlank
 	private String prodImg;
-	private String prodTotalstock;
+	
+	@NotNull
+	@Min(0)
+	private Integer prodTotalstock;
 	private String prodInsdate;
-	private String prodProperstock;
+	@NotNull
+	@Min(0)
+	private Integer prodProperstock;
 	private String prodSize;
 	private String prodColor;
 	private String prodDelivery;
 	private String prodUnit;
-	private String prodQtyin;
-	private String prodQtysale;
-	private String prodMileage;
+	private Integer prodQtyin;
+	private Integer prodQtysale;
+	private Integer prodMileage;
 	
 //	private MemberVO member; <- 이렇게 쓰면 has a 한 사람당 한 상품밖에 가져올 수밖에 없어서 안됨.
 	private Set<MemberVO> memberSet; // has many 관계

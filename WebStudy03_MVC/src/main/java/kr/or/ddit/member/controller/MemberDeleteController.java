@@ -18,20 +18,26 @@ import org.apache.commons.beanutils.BeanUtils;
 import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
+import kr.or.ddit.mvc.annotation.RequestMethod;
+import kr.or.ddit.mvc.annotation.resolvers.ModelAttribute;
+import kr.or.ddit.mvc.annotation.stereotype.Controller;
+import kr.or.ddit.mvc.annotation.stereotype.RequestMapping;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.validate.DeleteGroup;
 import kr.or.ddit.validate.ValidationUtils;
 import kr.or.ddit.vo.MemberVO;
 
-@WebServlet("/member/memberDelete.do")
-public class MemberDeleteControllerServlet extends HttpServlet{
+//@WebServlet("/member/memberDelete.do")
+@Controller
+public class MemberDeleteController {
 	private MemberService service = new MemberServiceImpl();
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping(value="/member/memberDelete.do", method=RequestMethod.POST)
+	public String memberDelete(HttpSession session 
+			, HttpServletRequest req, HttpServletResponse resp) {
 //		req.setCharacterEncoding("UTF-8");
 		// 1.요청분석
-		HttpSession session = req.getSession(); //누구인지를 꺼낸다.
+//		HttpSession session = req.getSession(); //누구인지를 꺼낸다.
 		MemberVO authMember = (MemberVO) session.getAttribute("authMember"); //로그인을 한 것과 같은 비슷한 효과를 냈다.
 //		req.getUserPrincipal(); // 세션이 실제로 인증이 되어 있다면 여기서 null이 들어오면 안된다.
 		//반드시 있어야만 하는 데이터들
@@ -82,8 +88,8 @@ public class MemberDeleteControllerServlet extends HttpServlet{
 			session.setAttribute("message", "아이디나 비밀번호 누락");
 			viewName = "redirect:/mypage.do";
 		}
-		new InternalResourceViewResolver("/WEB-INF/views/",".jsp").resolveView(viewName, req, resp);
-
+//		new InternalResourceViewResolver("/WEB-INF/views/",".jsp").resolveView(viewName, req, resp);
+		return viewName;
 
 
 

@@ -81,9 +81,9 @@
 </form>
 <script type="text/javascript">
 // 	$("[name=searchType]").val("${pagingVO.simpleCondition.searchType}");
-	$("[name=searchType]").val("${searchvo.searchType}");
+	$("[name=searchType]").val("${searchVO.searchType}");
 // 	$("[name=searchWord]").val("${pagingVO.simpleCondition.searchWord}");
-	$("[name=searchWord]").val("${searchvo.searchWord}");
+	$("[name=searchWord]").val("${searchVO.searchWord}");
 	
 	let searchForm = $("#searchForm");
 	let searchUI = $("#searchUI").on("click", "#searchBtn", function(){

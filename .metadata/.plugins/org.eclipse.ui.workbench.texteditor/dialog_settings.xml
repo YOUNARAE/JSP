@@ -26,8 +26,8 @@
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
-			<item value="{m"/>
 			<item value=" "/>
+			<item value="{m"/>
 		</list>
 	</section>
 	<section name="org.eclipse.wst.xml.ui.internal.preferences.XMLTemplatePreferencePage$XMLEditTemplateDialog_dialogBounds">

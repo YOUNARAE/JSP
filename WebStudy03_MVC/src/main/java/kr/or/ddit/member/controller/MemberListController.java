@@ -30,8 +30,8 @@ public class MemberListController{ //완전한 POJO
 	private MemberService service = new MemberServiceImpl();
 	
 //	@Override
-	@RequestMapping("/member/memberList.do") //싱글어노테이션이고 겟메소드가 기본으로 숨어있다.
 //	public String memberList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping("/member/memberList.do") //싱글어노테이션이고 겟메소드가 기본으로 숨어있다.
 	public String memberList(
 //			@RequestParam("page") int currentPage 이렇게 쓰면 페이지가 필수 파라미터가 된다
 			@RequestParam(value="page", required=false, defaultValue="1") int currentPage

@@ -30,4 +30,24 @@ public interface ProdDAO {
 	 */
 	public List<ProdVO> selectProdList(PagingVO<ProdVO> pagingVO); //모든 목록 리스트가 페이징 처리가 되는 쿼리문 안에 있기때문에 타입은  pagingVO 가 된다
 	
+	/**
+	 * 상품 신규등록
+	 * @param prod
+	 * @return 등록된 상품 수
+	 */
+	public int insertProd(ProdVO prod);
+	
+	/**
+	 * 상품 수정
+	 * @param prod
+	 * @return 수정된 상품 수
+	 */
+	public int updateProd(ProdVO prod);
+	
+	/**
+	 * 상품 삭제
+	 * @param prodId
+	 * @return
+	 */
+//	public int deleteProd(String prodId);
 }

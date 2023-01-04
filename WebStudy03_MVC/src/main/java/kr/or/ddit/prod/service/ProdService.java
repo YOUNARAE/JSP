@@ -1,5 +1,6 @@
 package kr.or.ddit.prod.service;
 
+import kr.or.ddit.enumpkg.ServiceResult;
 import kr.or.ddit.vo.PagingVO;
 import kr.or.ddit.vo.ProdVO;
 public interface ProdService {
@@ -18,5 +19,19 @@ public interface ProdService {
 	 * 
 	 */
 	public void retrieveProdList(PagingVO<ProdVO> pagingVO); //리턴타입이 void라는 것은 반환값을 가져가지 않겠다는 의미
+	
+	/**
+	 * 상품 등록
+	 * @param prod
+	 * @return OK, FAIL
+	 */
+	public ServiceResult createProd(ProdVO prod);
+	
+	/** 
+	 * 상품수정
+	 * @param prod
+	 * @return 존재하지 않을 경우 런타임익셉션을 발생, OK, FAIL, 
+	 */
+	public ServiceResult modifyProd(ProdVO prod);
 
 }

@@ -127,5 +127,5 @@ public class MemberVO implements Serializable{
 //	has many 관계 (1:N) , 갖는다라고 표현하기때문에 has관계라고 표현해준다
 	
 	//롬북은 이클립스에 써야하는 플러그인이라서 메이븐에서 추가하는 것이 아님
-	
+	private String memRole;
 }
