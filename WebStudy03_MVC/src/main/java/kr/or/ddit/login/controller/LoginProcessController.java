@@ -62,6 +62,8 @@ public class LoginProcessController {
 				ServiceResult result = service.authenticate(member);
 //			2. 인증단계
 				if(ServiceResult.OK.equals(result)) { //인증 성공
+					//1. 갖고 있는 리퀘스트에 프린시펄을 넣어주는 단계인데 세션이라 리퀘스트에 프린시펄을 넣을 수가 없다.
+					
 					//추가
 					Cookie saveIdCookie = new Cookie("saveId", member.getMemId());
 //				ex)www.naver.com

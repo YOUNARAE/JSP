@@ -1,6 +1,8 @@
 package kr.or.ddit.vo;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.List;
 
 import javax.validation.constraints.Email;
@@ -14,6 +16,7 @@ import javax.validation.groups.Default;
 //랭스와 사이즈 중에 프레임워크의 종속성을 최대한 갖지 않도록 하기 위해 size로 선택했다.
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import kr.or.ddit.mvc.multipart.MultipartFile;
 import kr.or.ddit.validate.DeleteGroup;
 import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.validate.UpdateGroup;
@@ -128,4 +131,22 @@ public class MemberVO implements Serializable{
 	
 	//롬북은 이클립스에 써야하는 플러그인이라서 메이븐에서 추가하는 것이 아님
 	private String memRole;
+	
+	private byte[] memImg; //BLOB가 바이트 배열이라서 배열타입니다
+	private MultipartFile memImage; //memImg와 소통해야해
+	
+	public void setMemImage(MultipartFile memImage) throws IOException {
+		if(memImage!=null && !memImage.isEmpty()) {
+			this.memImage = memImage;
+			this.memImg = memImage.getBytes(); //이미지로 올라오는 녀석을 받아서 걔를 img로 바꿔주는데
+		}
+	}
+	
+	public String getBase64MemImg() { //base64는 인코딩 하면 크기가 1.3배 증가한다.
+		//문자도 있고 숫자도 있어서 리턴타입이 String
+		if(memImg!=null)
+			return Base64.getEncoder().encodeToString(memImg);
+		else
+			return null;
+	}
 }

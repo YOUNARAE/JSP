@@ -1,11 +1,14 @@
 package kr.or.ddit.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +20,11 @@ import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.annotation.RequestMethod;
 import kr.or.ddit.mvc.annotation.resolvers.ModelAttribute;
+import kr.or.ddit.mvc.annotation.resolvers.RequestPart;
 import kr.or.ddit.mvc.annotation.stereotype.Controller;
 import kr.or.ddit.mvc.annotation.stereotype.RequestMapping;
+import kr.or.ddit.mvc.multipart.MultipartFile;
+import kr.or.ddit.mvc.multipart.MultipartHttpServletRequest;
 import kr.or.ddit.validate.InsertGroup;
 import kr.or.ddit.validate.ValidationUtils;
 import kr.or.ddit.vo.MemberVO;
@@ -74,7 +80,8 @@ public class MemberInsertController {
 	public String memberInsert(
 			HttpServletRequest req
 			, @ModelAttribute("member") MemberVO member
-		) throws ServletException {
+			, @RequestPart(value="memImage", required=false) MultipartFile memImage
+		) throws ServletException, IOException {
 		//a 모델확보
 //		MemberVO member = getMemberFromRequest(req);
 //		int ret = service.createMember(member);
@@ -104,7 +111,13 @@ public class MemberInsertController {
 //		} catch (IllegalAccessException | InvocationTargetException e) {
 //			throw new ServletException(e);
 //		}
+		//멀티파트 작업을 해야하는데 바이너리 타입으로 저장을 해줘야한다
 		
+//		if(req instanceof MultipartHttpServletRequest) {
+//			MultipartFile memImage = ((MultipartHttpServletRequest) req).getFile("memImage"); //클라이언트가 보내주는 이미지의 이름을 받아야한다.
+			member.setMemImage(memImage); //이미지로 올라오는 녀석을 받아서 걔를 img로 바꿔주는데
+//		}
+
 		//검증을 이 이후에 해야 맵에 내용들이 들어가있기때문에 검증이 가능하다
 			
 		//맵이 하나 필요하다

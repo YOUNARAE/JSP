@@ -15,7 +15,7 @@
 </head>
 <body>
 <h4>상품 등록하기</h4>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<th>상품아이디</th>
@@ -88,8 +88,13 @@
 		</tr>
 		<tr>
 			<th>상품이미지</th>
-			<td><input class="form-control" type="text" 
-				name="prodImg" value="${prod.prodImg}" /><span class="text-danger">${errors.prodImg}</span></td>
+			<td>
+				<input type="file" name="prodImage" accept="image/*"/>
+				<!-- img는 디비용, image는 디비로 보낼때 쓰는 클라이언트용 -->
+				<!-- <input class="form-control" type="text" 
+				name="prodImg" value="${prod.prodImg}" />
+				prodId는 디비에서 따온 것이라 저 아이디로 쓸 수 없다-->
+				<span class="text-danger">${errors.prodImg}</span></td> 
 		</tr>
 		<tr>
 			<th>재고</th>

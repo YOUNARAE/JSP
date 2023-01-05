@@ -2,6 +2,7 @@ package kr.or.ddit.mvc.annotation.resolvers;
 
 import java.io.IOException;
 import java.lang.reflect.Parameter;
+import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * {@link HttpServletRequest}, {@link HttpServletResponse}  타입의 핸들러 메소드 인자 해결.
+ * {@link HttpServletRequest}, {@link HttpServletResponse}, {@link Principal} 타입의 핸들러 메소드 인자 해결.
  * @author PC-06
  *
  */
@@ -22,7 +23,9 @@ public class ServletRequestMethodArgumentResolver implements HandlerMethodArgume
 		Class<?>parameterType = parameter.getType();
 		boolean support = HttpServletRequest.class.equals(parameterType)
 							||
-						  HttpSession.class.equals(parameterType);
+						  HttpSession.class.equals(parameterType)
+							||
+						  Principal.class.isAssignableFrom(parameterType);//프린시펄이 파라미터타입의 부모인지를 보는 코드
 		return support; //내가 처리할 수 있는 파라미터를 정하는,
 	}
 
@@ -35,8 +38,10 @@ public class ServletRequestMethodArgumentResolver implements HandlerMethodArgume
 		Object argumentObject = null; //아규먼트를 리턴으로 반환시킨다
 		if(HttpServletRequest.class.equals(parameterType)) {
 			argumentObject = req;
-		} else {
+		} else if(HttpSession.class.equals(parameterType)){
 			argumentObject = req.getSession(); //세션 객체가 없기때문에 리퀘스트의 get으로 세션을 꺼내온다.
+		} else {
+			argumentObject = req.getUserPrincipal();
 		}
 		return argumentObject;
 	}

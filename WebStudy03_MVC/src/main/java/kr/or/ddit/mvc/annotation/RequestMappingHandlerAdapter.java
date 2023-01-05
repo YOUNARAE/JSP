@@ -14,6 +14,7 @@ import kr.or.ddit.mvc.annotation.resolvers.HandlerMethodArgumentResolver;
 import kr.or.ddit.mvc.annotation.resolvers.ModelAttributeMethodProcessor;
 import kr.or.ddit.mvc.annotation.resolvers.RequestParamMethodArgumentResolver;
 import kr.or.ddit.mvc.annotation.resolvers.RequestParamMethodArgumentResolver.BadRequestException;
+import kr.or.ddit.mvc.annotation.resolvers.RequestPartMethodArgumentResolver;
 import kr.or.ddit.mvc.annotation.resolvers.ServletRequestMethodArgumentResolver;
 import kr.or.ddit.mvc.annotation.resolvers.ServletResponseMethodArgumentResolver;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class RequestMappingHandlerAdapter implements HandlerAdapter { //스프�
 		//한개짜리를 가지고 있는 헤즈 관계를 형성했다. 
 		//모든 리절버는 여기에 추가하고 있다
 		argumentResolvers.add(new ModelAttributeMethodProcessor());
+		argumentResolvers.add(new RequestPartMethodArgumentResolver());
 	}
 
 	private HandlerMethodArgumentResolver findArgumentResolver(Parameter param) {

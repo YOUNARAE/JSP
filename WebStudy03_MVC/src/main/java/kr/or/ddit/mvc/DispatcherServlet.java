@@ -44,7 +44,7 @@ public class DispatcherServlet extends HttpServlet{
 	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		super.service(req, res);
 //		이 서비스에서는 do 계열 메서드를 사용하지 않겠다는 의미다. 이제부터는 각 웨이터가 접대했다면, 정문에 웨이터를 한명만 놓고,실제적으로 김치찌개를 나르지 않기때문에 do계열의 메서드가 필요없다
-		req.setCharacterEncoding("UTF-8");
+//		req.setCharacterEncoding("UTF-8"); --필터로 옮겨간다
 		
 //		String requestURI = req.getRequestURI(); //컨텍스트패스가 포함되어 있
 //		requestURI = requestURI.substring(req.getContextPath().length());

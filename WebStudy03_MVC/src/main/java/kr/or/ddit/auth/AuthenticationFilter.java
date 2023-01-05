@@ -2,6 +2,7 @@ package kr.or.ddit.auth;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -72,8 +73,10 @@ public class AuthenticationFilter implements Filter{
 			//케이스1이 이미 true이다
 			//보호자원일 경우에
 			//신원을 확인해야한다.
-			Object authMember = req.getSession().getAttribute("authMember"); //상황은 얘가 있거나 없거나 둘 중 상황이다
-			if(authMember==null) {
+			Principal principal = req.getUserPrincipal(); //추가 , 인증이 안됐을 때 널이 온다
+//			Object authMember = req.getSession().getAttribute("authMember"); //상황은 얘가 있거나 없거나 둘 중 상황이다
+//			if(authMember==null) {
+			if(principal==null) { 
 				//이 케이스는 통과시키면 안된다.
 				pass = false;
 			}

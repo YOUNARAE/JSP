@@ -27,27 +27,62 @@
 	</filter-mapping> -->
 	
 	<filter>
-		<filter-name>AuthenticationFilter</filter-name>
-		<filter-class>kr.or.ddit.auth.AuthenticationFilter</filter-class>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>kr.or.ddit.mvc.CharacterEncodingFilter</filter-class>
 		<init-param>
-			<param-name>filePath</param-name>
-			<param-value>/kr/or/ddit/SecuredResources.properties</param-value>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forced</param-name>
+			<param-value>true</param-value>
 		</init-param>
 	</filter>
+	
 	<filter-mapping>
-		<filter-name>AuthenticationFilter</filter-name>
+		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- 반드시 다음에 등록해야한다 -->
 	
 	<filter>
-		<filter-name>AuthorizationFilter</filter-name>
-		<filter-class>kr.or.ddit.auth.AuthorizationFilter</filter-class>
+		<filter-name>GeneratePrincipalFilter</filter-name>
+		<filter-class>kr.or.ddit.auth.GeneratePrincipalFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>AuthorizationFilter</filter-name>
+		<filter-name>GeneratePrincipalFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+		<filter-name>MultipartFilter</filter-name>
+		<filter-class>kr.or.ddit.mvc.multipart.MultipartFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MultipartFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+<!-- 	<filter>신원확인을 하는 필터, 인증 -->
+<!-- 		<filter-name>AuthenticationFilter</filter-name> -->
+<!-- 		<filter-class>kr.or.ddit.auth.AuthenticationFilter</filter-class> -->
+<!-- 		<init-param> -->
+<!-- 			<param-name>filePath</param-name> -->
+<!-- 			<param-value>/kr/or/ddit/SecuredResources.properties</param-value> -->
+<!-- 		</init-param> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>AuthenticationFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+	
+<!-- 	<filter> -->
+<!-- 		<filter-name>AuthorizationFilter</filter-name> -->
+<!-- 		<filter-class>kr.or.ddit.auth.AuthorizationFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>AuthorizationFilter</filter-name> -->
+<!-- 		<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 	
 	
 	<!-- 유일한 프론트인 대문을 등록해준다 -->
@@ -55,6 +90,10 @@
 		<servlet-name>frontController</servlet-name>
 		<servlet-class>kr.or.ddit.mvc.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
+		<!-- 파일업로드에 필요한 multi-part 설정 -->
+		<multipart-config><!-- 임시저장소의위치를 결정해줘야하고 그 장소가 location이다 ,역슬래시를 /로 바꾸기-->
+			<location>D:/filetemp</location>
+		</multipart-config>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>frontController</servlet-name>

@@ -70,7 +70,9 @@
 		</tr>
 		<tr>
 			<th>상품이미지</th>
-			<td>${prod.prodImg}</td>
+			<td>
+				<img src="${pageContext.request.contextPath }/recources/prodImages/${prod.prodImg}" /> <!-- 클라이언트 사이드가 되려면 ${pageContext.request.contextPath }붙인다 -->
+			</td>
 		</tr>
 		<tr>
 			<th>재고</th>
@@ -144,6 +146,26 @@
 							</c:otherwise>
 						</c:choose>
 					</tbody>
+					<tr>
+						<td>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<form method="post" action="<c:url value='/member/memberDelete.do'/>">
+											<div class="modal-body">
+												<input type="password" name="memPass" required"/>
+											</div>
+											<div class="modal-footer">
+												<button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</a>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</td>
+					</tr>
 				</table>
 			</td>
 		</tr>

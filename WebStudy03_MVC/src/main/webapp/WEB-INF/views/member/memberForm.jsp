@@ -14,7 +14,7 @@
 </c:if>
 </head>
 <body>
-<form method="post"> <!-- 여기까지 올 때는 겟이지만 포스트가 된다 -->
+<form method="post" enctype="multipart/form-data"> <!-- 여기까지 올 때는 겟이지만 포스트가 된다 -->
 	<h4>회원가입하라</h4>
 	<table>
 		<tr>
@@ -31,8 +31,15 @@
 		<tr>
 			<th>회원명</th>
 			<td><input class="form-control" type="text" 
-				name="memName" value="${member.memName}" /><span
-				class="text-danger">${errors.memName}</span></td>
+				name="memName" value="${member.memName}" />
+				<span class="text-danger">${errors.memName}</span></td>
+		</tr>
+		<tr>
+			<th>회원프로필</th>
+			<td>
+				<input type="file" name="memImage" accept="image/*" />
+				<span class="text-danger">${errors.memImage}</span>
+			</td>
 		</tr>
 		<tr>
 			<th>주민번호1</th>

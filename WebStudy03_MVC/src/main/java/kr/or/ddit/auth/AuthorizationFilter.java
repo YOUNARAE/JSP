@@ -1,6 +1,7 @@
 package kr.or.ddit.auth;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVOWrapper;
 /**
  * 보호자원에 대한 요청인 경우,
  * 자원에 설정된 역할 정보와 사용자에게 부여된 역할 정보가 일치할 때
@@ -36,7 +38,7 @@ public class AuthorizationFilter implements Filter{
 		Map<String, String[]> securedRecources = (Map) application.getAttribute(AuthenticationFilter.SECUREDNAME);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpSession session = req.getSession();
+//		HttpSession session = req.getSession(); // 세션 없어도 리퀘스트 만드로도 가능해진 건 이프문 안에 authMember를 받아서
 		
 		boolean pass = true;
 		String uri = req.getServletPath();
@@ -44,7 +46,9 @@ public class AuthorizationFilter implements Filter{
 		if(securedRecources.containsKey(uri)) {
 			String[] resRoles = securedRecources.get(uri);//여러개를 가지고 있어서
 			//한쪽의 비교대상을 잡아왔다
-			MemberVO authMember = (MemberVO) session.getAttribute("authMember");
+//			MemberVO authMember = (MemberVO) session.getAttribute("authMember"); //principal구현 전 코드
+			MemberVOWrapper principal = (MemberVOWrapper) req.getUserPrincipal();
+			MemberVO authMember = principal.getRealMember(); // 세션 없어도 리퀘스트 만드로도 가능
 			String memRole = authMember.getMemRole(); //이 배열안에 memRole이 포함되어 있는지
 			pass = Arrays.stream(resRoles) //true가 돌아오면 통과시키고 false가 돌아오면 통과시키면 안된다.ㄴ
 				.anyMatch(ele->ele.equals(memRole));

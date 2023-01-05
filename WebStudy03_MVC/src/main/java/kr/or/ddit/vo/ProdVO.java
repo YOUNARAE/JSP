@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.Part;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import kr.or.ddit.mvc.multipart.MultipartFile;
 import kr.or.ddit.validate.UpdateGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -50,7 +52,9 @@ public class ProdVO implements Serializable{
 	
 	private String prodDetail;
 	@NotBlank
-	private String prodImg;
+	private String prodImg; // 데이타베이트 PROD 테이블 조회용 프로버피, 여기서 온  prodImage를 받는다고 하면,
+	
+	private MultipartFile prodImage; //이 인터페이스의 타입으로 받으면 서블릿 스펙 버전에 대해 고려할 필요없다
 	
 	@NotNull
 	@Min(0)

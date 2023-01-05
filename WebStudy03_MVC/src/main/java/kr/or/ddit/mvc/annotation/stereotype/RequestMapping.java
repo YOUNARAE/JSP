@@ -19,5 +19,5 @@ public @interface RequestMapping {
 	//이렇게 써서 싱글벨류 어노테이션이 될 수 있다.
 	RequestMethod method() default RequestMethod.GET;
 	//속성이 2개가 됨.
-	//싱글밸류로 사용할 수 없다. 값이 두개라서, 그럴땐 default 를 붙여준다. 
+	//single value로 사용할 수 없다. 값이 두개라서, 그럴땐 default 를 붙여준다.
 }

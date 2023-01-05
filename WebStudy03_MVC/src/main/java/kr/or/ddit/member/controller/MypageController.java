@@ -1,6 +1,7 @@
 package kr.or.ddit.member.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import kr.or.ddit.mvc.annotation.stereotype.Controller;
 import kr.or.ddit.mvc.annotation.stereotype.RequestMapping;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.vo.MemberVO;
+import kr.or.ddit.vo.MemberVOWrapper;
 
 //@WebServlet("/mypage.do")
 //public class MypageControllerServlet extends HttpServlet{
@@ -26,11 +28,13 @@ public class MypageController{
 //	@Override
 //	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	@RequestMapping("/mypage.do")
-	public String mypage(HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
+	public String mypage(HttpServletRequest req, MemberVOWrapper principal) {
 		//누구라는 정보는 세션에 들어있는 세션스코프가 필요하다
 //		HttpSession session = req.getSession();
-		MemberVO authMember = (MemberVO) session.getAttribute("authMember");
-		authMember.getMemId();
+//		MemberVOWrapper principal = (MemberVOWrapper) req.getUserPrincipal(); //아규먼트 넣어줘서 없어져도 되는 코드 
+//		MemberVO authMember = (MemberVO) session.getAttribute("authMember");
+		MemberVO authMember = principal.getRealMember();
+//		authMember.getMemId();
 		
 		MemberVO member = service.retrieveMember(authMember.getMemId()); // 방금전 그 아이디를 꺼내서 넘겨준다
 		// 여기에 모든 로그인한 사람의 정보를 가지고 있는 모델 확보

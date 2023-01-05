@@ -20,8 +20,11 @@ import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.mvc.annotation.RequestMethod;
 import kr.or.ddit.mvc.annotation.resolvers.ModelAttribute;
+import kr.or.ddit.mvc.annotation.resolvers.RequestPart;
 import kr.or.ddit.mvc.annotation.stereotype.Controller;
 import kr.or.ddit.mvc.annotation.stereotype.RequestMapping;
+import kr.or.ddit.mvc.multipart.MultipartFile;
+import kr.or.ddit.mvc.multipart.MultipartHttpServletRequest;
 import kr.or.ddit.mvc.view.InternalResourceViewResolver;
 import kr.or.ddit.validate.UpdateGroup;
 import kr.or.ddit.validate.ValidationUtils;
@@ -61,7 +64,12 @@ public class MemberUpdateController{
 	@RequestMapping(value="/member/memberUpdate.do", method=RequestMethod.POST)
 	public String updateProcess(
 			@ModelAttribute("member") MemberVO member
-			, HttpServletRequest req) { 
+			, HttpServletRequest req
+			, @RequestPart(value="memImage", required=false) MultipartFile memImage
+			, HttpSession session
+	) throws IOException { 
+		
+		String viewName=null;	
 		//한글 요청으로 수정할 수 있어야한다.
 //		req.setCharacterEncoding("UTF-8");
 		//수정한 글을 받을 그릇을 만든다		
@@ -76,7 +84,18 @@ public class MemberUpdateController{
 //			throw new ServletException(e);
 //		}
 		
-		String viewName=null;		
+//230105수정
+//		if(req instanceof MultipartHttpServletRequest) {
+////			MultipartHttpServletRequest wrapperReq = (MultipartHttpServletRequest) req;
+////			
+//			MultipartFile memImage = ((MultipartHttpServletRequest) req).getFile("memImage"); //클라이언트가 보내주는 이미지의 이름을 받아야한다.
+//			//1. 저장
+//			if(memImage!=null && !memImage.isEmpty()) {
+//				member.setMemImg(memImage.getBytes()); //이미지로 올라오는 녀석을 받아서 걔를 img로 바꿔주는데
+//			}
+//		}
+		
+		member.setMemImage(memImage);
 		
 		Map<String, List<String>> errors = new LinkedHashMap<>();
 		req.setAttribute("errors", errors);
@@ -97,6 +116,9 @@ public class MemberUpdateController{
 				break;
 				
 			default:
+				MemberVO modifiedMember = service.retrieveMember(member.getMemId()); //수정한 후의 값을 어스멤버에 덮어씌워줘야한다.
+				//그래야 수정한 이미지가 바로 뜸.
+				session.setAttribute("authMember", modifiedMember);
 //				수정이 이미 끝났다. 리다이렉트
 				viewName = "redirect:/mypage.do"; //성공했을 때 상황
 				break;
