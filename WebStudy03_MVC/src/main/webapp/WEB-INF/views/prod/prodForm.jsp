@@ -90,6 +90,10 @@
 			<th>상품이미지</th>
 			<td>
 				<input type="file" name="prodImage" accept="image/*"/>
+				<p>현재 등록되어진 이미지</p>
+				<div class="" style="width:200px; height:350px;">
+					<img src="${pageContext.request.contextPath }/recources/prodImages/${prod.prodImg}" style=""/>
+				</div>
 				<!-- img는 디비용, image는 디비로 보낼때 쓰는 클라이언트용 -->
 				<!-- <input class="form-control" type="text" 
 				name="prodImg" value="${prod.prodImg}" />
@@ -159,15 +163,12 @@
 	</table>
 </form>
 <script type="text/javascript">
-	let prodBuyerTag = $("[name=prodBuyer]");
-	$("[name=prodLgu]").on("change", function(){
-		let prodLgu = $(this).val(); //셀렉트 쿼리라서 바로 네임으로 못 꺼내니까 제이쿼리화 시켜서 val값으로 꺼낸다
-		if(prodLgu){
-			//prodLgu가 적정한 값을 갖고 있으면
-			prodBuyerTag.find("option:gt(0)").hide(); // 0번째 제외하고 가리기
-			prodBuyerTag.find("option."+prodLgu).show();				
-		}
-	}).trigger("change");
+$("[name=prodLgu]").on("change", function(){
+	let prodLgu = $(this).val(); //셀렉트 쿼리라서 바로 네임으로 못 꺼내니까 제이쿼리화 시켜서 val값으로 꺼낸다
+	prodBuyerTag.find("option:gt(0)").hide(); // 0번째 제외하고 가리기
+	prodBuyerTag.find("option."+prodLgu).show();	
+});
+let prodBuyerTag = $("[name=prodBuyer]");
 </script>
 <jsp:include page="/includee/postScript.jsp" />
 </body>

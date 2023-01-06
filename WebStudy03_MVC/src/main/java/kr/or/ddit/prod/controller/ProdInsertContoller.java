@@ -67,8 +67,13 @@ public class ProdInsertContoller{
 ////			wrapperReq.getF
 //			MultipartFile prodImage = wrapperReq.getFile("prodImage"); //클라이언트가 보내주는 이미지의 이름을 받아야한다.
 			//prodImage->prodImg
+		
+			prod.setProdImage(prodImage); //이렇게 넣어준다면 있나없나 모두 확인하고 마임타입까지 모두 확인하고 온 것이다. 정상적이면 업로드가 된다.
 			
-			if(prodImage!=null && !prodImage.isEmpty()) {//널도 아니고 비어있지도 않은지 확인되야 이미지를 업로드한다 
+			String saveFileName = prod.getProdImg();
+			
+//			if(saveFileName!=null) {//널도 아니고 비어있지도 않은지 확인되야 이미지를 업로드한다 , VO에서 작업해줘서 이프문도 다 사라졌다.
+//			if(prodImage!=null && !prodImage.isEmpty()) {//널도 아니고 비어있지도 않은지 확인되야 이미지를 업로드한다 
 //			1.저장
 				String saveFolderURL = "/recources/prodImages";
 				ServletContext application = req.getServletContext(); 
@@ -78,12 +83,13 @@ public class ProdInsertContoller{
 					saveFolder.mkdirs(); 
 				//상품을 수정을 할 때 바꾸고 싶을 수도 안 바꾸고 싶을 수도 있다.
 //				2.metadata 추출
-				String saveFileName = UUID.randomUUID().toString();
-				prodImage.transferTo(new File(saveFolder, saveFileName));
+//				String saveFileName = UUID.randomUUID().toString(); // 위에 셋터에서 이미 만들어지고 있어서 저장명을 여기서 할 필요가 없다
+//				prodImage.transferTo(new File(saveFolder, saveFileName)); //VO에서 저장하고 메타데이터 추출하는 거 다 했음
 				
 //				3.DB저장
-				prod.setProdImg(saveFileName);
-			}
+//				prod.setProdImg(saveFileName);
+				prod.saveTo(saveFolder);
+//			}
 //		}
 		
 		Map<String, List<String>> errors = new HashMap<>();

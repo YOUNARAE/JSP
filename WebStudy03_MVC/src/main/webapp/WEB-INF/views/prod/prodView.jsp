@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>prodView.jsp</title>
 </head>
 <body>
 	<table>
@@ -114,6 +114,14 @@
 			<th>마일리지</th>
 			<td>${prod.prodMileage}</td>
 		</tr>
+		<tr>	
+			<c:url value='/prod/prodList.do' var="listURL" />
+			<a class="btn" style="border:3px solid red" href="${listURL }">목록으로</a>
+			<c:url value="/prod/prodUpdate.do" var="updateURL">
+				<c:param name="what" value="${ prod.prodId}"></c:param>
+			</c:url>
+			<a href="${updateURL }"  style="border:3px solid red" class="btn" >상품수정</a>
+		</tr>
 		<tr>
 			<th>구매목록</th>
 			<td>
@@ -158,7 +166,7 @@
 												<input type="password" name="memPass" required"/>
 											</div>
 											<div class="modal-footer">
-												<button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">탈퇴</a>
+												<button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">삭제</a>
 											</div>
 										</form>
 									</div>
@@ -170,5 +178,6 @@
 			</td>
 		</tr>
 	</table>
+
 </body>
 </html>

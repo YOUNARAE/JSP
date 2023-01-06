@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.prod.dao.ProdDAO">
+	<sql id="searchFrag">
+		<!-- 싱글코테이션에 넣어서 리터럴로 비교하겠다는 의미 , 이름이 아니라서 패턴 매칭할 필요가 없다?-->
+		<trim prefix=" WHERE " prefixOverrides="AND">
+			<if test="detailCondition neq null"> 
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodLgu)">	
+					AND PROD_LGU = #{detailCondition.prodLgu}
+				</if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodBuyer)">
+					AND PROD_BUYER = #{detailCondition.prodBuyer}
+				</if>
+				<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(detailCondition.prodName)">
+					AND INSTR(PROD_NAME, #{detailCondition.prodName}) > 0
+				</if>
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="selectTotalRecord" resultType="int" parameterType="PagingVO"> <!-- 검색기능 where를 붙여야해서 파라미터 타입이 붙는다 -->
+		SELECT COUNT(*)
+		FROM prodview
+		<include refid="searchFrag" />
+	</select>
+	
+	<!-- 
+	<resultMap type="ProdVO" id="prodMap" autoMapping="true"> 
+		<id property="prodId" column="PROD_ID"/> 
+		<association property="buyer" javaType="BuyerVO" autoMapping="true"></association>
+		<collection property="memberSet" ofType="MemberVO" autoMapping="true">
+			<id property="memId" column="MEM_ID"/>
+		</collection>
+	</resultMap> -->
+	
+	<!--  <resultMap type="ProdVO" id="prodMap" autoMapping="true"> 
+		<association property="buyer" javaType="BuyerVO" autoMapping="true">
+		
+		</association>
+	</resultMap> -->
+
+	<!-- 	has a 관계라서 아이디가 필요없다-->
+	<select id="selectProdList"  parameterType="PagingVO" resultType="ProdVO"> <!--String 따옴표를 붙여주면 헤즈어관계일 때 이름을 유지시켜줄 수 있다-->
+		WITH ORDEREDPROD AS (
+							SELECT PROD_ID, PROD_NAME, PROD_COST, PROD_PRICE
+					        , LPROD_NM
+					        , BUYER_NAME "buyer.buyerName" 
+					        , (
+					            SELECT COUNT(DISTINCT CART_MEMBER) FROM CART 
+					            WHERE CART_PROD = PROD_ID
+					        ) MEM_COUNT
+			FROM PRODVIEW
+			<include refid="searchFrag" />
+			ORDER BY PROD_LGU, ROWID DESC
+		) 
+		SELECT A.*
+		FROM (
+		    SELECT ROWNUM RNUM, ORDEREDPROD.*
+		    FROM ORDEREDPROD
+		  ) A
+		WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 
+	<select id="selectProdList" resultMap="prodMap" parameterType="PagingVO">
+      SELECT B.*
+	      FROM (
+	          SELECT A.*, ROWNUM RNUM
+	          FROM (
+	              WITH CARTVIEW AS (
+	                  SELECT CART_PROD, SUM(CART_QTY) CNT
+	                  FROM CART INNER JOIN PROD ON (CART_PROD = PROD_ID)
+	                  GROUP BY CART_PROD
+	                  ORDER BY 1 ASC
+	              )
+	              SELECT PROD_ID, PROD_LGU, PROD_NAME, BUYER_NAME, PROD_PRICE, PROD_SALE, CNT
+	              FROM   PRODVIEW LEFT OUTER JOIN CARTVIEW ON (PROD_ID = CART_PROD)
+	              <include refid="searchFrag"/>
+	              ORDER BY 1 ASC
+	          ) A
+	      ) B
+       <![CDATA[
+       WHERE RNUM >= #{startRow} AND RNUM <= #{endRow}
+       ]]>
+
+
+       SELECT B.*
+	FROM (	
+		SELECT A.*, ROWNUM RNUM
+		FROM (
+			SELECT
+			    A.prod_id,
+			    A.LPROD_NM,
+			    A.prod_name,
+			    A.prod_cost,
+			    A.prod_price
+			    , A.BUYER_NAME
+			    , B.cart_qty
+			FROM prodview A, cart B
+			<include refid="searchFrag" />
+			and A.prod_id=B.cart_prod
+		) A
+	) B
+<![CDATA[
+       WHERE RNUM >= #{startRow} AND RNUM <= #{endRow}
+       ]]>
+        -->
+	<resultMap type="ProdVO" id="prodMap" autoMapping="true"> 
+		<id property="prodId" column="PROD_ID"/> 
+		<association property="buyer" javaType="BuyerVO" autoMapping="true"></association>
+		<collection property="memberSet" ofType="MemberVO" autoMapping="true">
+			<id property="memId" column="MEM_ID"/>
+		</collection>
+	</resultMap>
+
+	<!-- resultType="memberVO" -->
+	<select id="selectProd" parameterType="String" resultMap="prodMap">
+		WITH CARTVIEW AS ( 
+			SELECT CART_PROD
+			, MEM_ID, MEM_NAME, MEM_HP, MEM_MAIL, MEM_MILEAGE
+			FROM CART INNER JOIN MEMBER ON (CART_MEMBER = MEM_ID)
+		)
+		SELECT
+			prod_id,
+			prod_name,
+			prod_lgu,
+			prod_buyer,
+			prod_cost,
+			prod_price,
+			prod_sale,
+			prod_outline,
+			prod_detail,
+			prod_img,
+			prod_totalstock,
+			prod_insdate,
+			prod_properstock,
+			prod_size,
+			prod_color,
+			prod_delivery,
+			prod_unit,
+			prod_qtyin,
+			prod_qtysale,
+			prod_mileage
+			, LPROD_NM
+			, BUYER_NAME, BUYER_ADD1, BUYER_CHARGER
+			, CARTVIEW.*
+		FROM prodview LEFT OUTER JOIN cartview ON (PROD_ID = CART_PROD)
+		WHERE PROD_ID =#{prodId}
+	</select>
+	
+	<insert id="insertProd" parameterType="ProdVO">
+	  <selectKey order="BEFORE" resultType="string" keyProperty="prodId"> <!-- 인서트보다 먼저 만든다 keyProperty가 prodId를 통해 setProdId를 호출해준다-->
+		  SELECT #{prodLgu,jdbcType=CHAR}||
+	      	LPAD(NVL(TO_NUMBER(SUBSTR(max(prod_id), 5)), 0) + 1, 6, '0')
+	      FROM PROD
+		 WHERE prod_lgu = #{prodLgu,jdbcType=CHAR}
+	  </selectKey>
+      INSERT INTO prod (
+        PROD_ID
+		, PROD_NAME
+		, PROD_LGU
+		, PROD_BUYER
+		, PROD_COST
+		, PROD_PRICE
+		, PROD_SALE
+		, PROD_OUTLINE
+		, PROD_DETAIL
+		, PROD_IMG
+		, PROD_TOTALSTOCK
+		, PROD_INSDATE
+		, PROD_PROPERSTOCK
+		, PROD_SIZE
+		, PROD_COLOR
+		, PROD_DELIVERY
+		, PROD_UNIT
+		, PROD_QTYIN
+		, PROD_QTYSALE
+		, PROD_MILEAGE
+     )VALUES(
+<!--       SELECT #{prodLgu,jdbcType=CHAR}|| LPAD(NVL(TO_NUMBER(SUBSTR(max(prod_id), 5)), 0) + 1, 6, '0') -->
+		#{prodId}
+		, #{prodName,jdbcType=VARCHAR}
+		, #{prodLgu,jdbcType=CHAR}
+		, #{prodBuyer,jdbcType=CHAR}
+		, #{prodCost,jdbcType=NUMERIC}
+		, #{prodPrice,jdbcType=NUMERIC}
+		, #{prodSale,jdbcType=NUMERIC}
+		, #{prodOutline,jdbcType=VARCHAR}
+		, #{prodDetail,jdbcType=CLOB}
+		, #{prodImg,jdbcType=VARCHAR}
+		, #{prodTotalstock,jdbcType=NUMERIC}
+		, #{prodInsdate,jdbcType=DATE}
+		, #{prodProperstock,jdbcType=NUMERIC}
+		, #{prodSize,jdbcType=VARCHAR}
+		, #{prodColor,jdbcType=VARCHAR}
+		, #{prodDelivery,jdbcType=VARCHAR}
+		, #{prodUnit,jdbcType=VARCHAR}
+		, #{prodQtyin,jdbcType=NUMERIC}
+		, #{prodQtysale,jdbcType=NUMERIC}
+		, #{prodMileage,jdbcType=NUMERIC}
+<!--  		FROM PROD where prod_lgu = #{prodLgu,jdbcType=CHAR}-->
+	)
+   </insert>
+   
+    <update id="updateProd" parameterType="ProdVO">
+      UPDATE PROD
+      SET
+		PROD_NAME = #{prodName,jdbcType=VARCHAR}
+		, PROD_LGU = #{prodLgu,jdbcType=CHAR}
+		, PROD_BUYER = #{prodBuyer,jdbcType=CHAR}
+		, PROD_COST = #{prodCost,jdbcType=NUMERIC}
+		, PROD_PRICE = #{prodPrice,jdbcType=NUMERIC}
+		, PROD_SALE = #{prodSale,jdbcType=NUMERIC}
+		, PROD_OUTLINE = #{prodOutline,jdbcType=VARCHAR}
+		, PROD_DETAIL = #{prodDetail,jdbcType=CLOB}
+		, PROD_IMG = #{prodImg,jdbcType=VARCHAR}
+		, PROD_TOTALSTOCK = #{prodTotalstock,jdbcType=NUMERIC}
+		, PROD_INSDATE = #{prodInsdate,jdbcType=DATE}
+		, PROD_PROPERSTOCK = #{prodProperstock,jdbcType=NUMERIC}
+		, PROD_SIZE = #{prodSize,jdbcType=VARCHAR}
+		, PROD_COLOR = #{prodColor,jdbcType=VARCHAR}
+		, PROD_DELIVERY = #{prodDelivery,jdbcType=VARCHAR}
+		, PROD_UNIT = #{prodUnit,jdbcType=VARCHAR}
+		, PROD_QTYIN = #{prodQtyin,jdbcType=NUMERIC}
+		, PROD_QTYSALE = #{prodQtysale,jdbcType=NUMERIC}
+		, PROD_MILEAGE = #{prodMileage,jdbcType=NUMERIC}
+      WHERE PROD_ID = #{prodId}
+   </update>
+	
+</mapper>

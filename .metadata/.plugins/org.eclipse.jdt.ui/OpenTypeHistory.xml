@@ -2,6 +2,6 @@
 <typeInfoHistroy>
 <typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.mvc.annotation.resolvers{HandlerMethodArgumentResolver.java[HandlerMethodArgumentResolver" modifiers="513" timestamp="1672726510375"/>
 <typeInfo handle="=WebStudy03_MVC/D:\/B_Util\/6.maven\/.m2\/repository\/javax\/servlet\/javax.servlet-api\/3.1.0\/javax.servlet-api-3.1.0.jar&lt;javax.servlet.http(Part.class[Part" modifiers="1537" timestamp="1672046022086"/>
-<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.mvc.multipart{MultipartFile.java[MultipartFile" modifiers="513" timestamp="1672896184376"/>
+<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.mvc.multipart{MultipartFile.java[MultipartFile" modifiers="513" timestamp="1672896415363"/>
 <typeInfo handle="=WebStudy03_MVC/D:\/B_Util\/6.maven\/.m2\/repository\/org\/apache\/logging\/log4j\/log4j-api\/2.19.0\/log4j-api-2.19.0.jar&lt;org.apache.logging.log4j.util(MultiFormatStringBuilderFormattable.class[MultiFormatStringBuilderFormattable" modifiers="1537" timestamp="1672117911163"/>
 </typeInfoHistroy>

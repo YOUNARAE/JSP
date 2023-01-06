@@ -53,14 +53,9 @@ public class ProdServiceImpl implements ProdService {
 
 	@Override
 	public ServiceResult modifyProd(ProdVO prod) {
-		ProdVO inputData = new ProdVO();
-		inputData.setProdId(prod.getProdId());
-		ServiceResult result = modifyProd(inputData);
-
-		if(ServiceResult.OK.equals(result)) {
-			int rowcnt = prodDAO.updateProd(prod);
-			result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
-		}
+		retrieveProd(prod.getProdId()); //존재하지 않는지 확인하려면 리트리브PROD만 건드리면 된다
+		int rowcnt = prodDAO.updateProd(prod);
+		ServiceResult result = rowcnt > 0 ? ServiceResult.OK : ServiceResult.FAIL;
 		return result;
 	}
 

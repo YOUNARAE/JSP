@@ -197,7 +197,7 @@
 		, #{prodQtyin,jdbcType=NUMERIC}
 		, #{prodQtysale,jdbcType=NUMERIC}
 		, #{prodMileage,jdbcType=NUMERIC}
-<!--  		FROM PROD where prod_lgu = #{prodLgu,jdbcType=CHAR}-->
+<!--  FROM PROD where prod_lgu = #{prodLgu,jdbcType=CHAR}-->
 	)
    </insert>
    
@@ -212,7 +212,7 @@
 		, PROD_SALE = #{prodSale,jdbcType=NUMERIC}
 		, PROD_OUTLINE = #{prodOutline,jdbcType=VARCHAR}
 		, PROD_DETAIL = #{prodDetail,jdbcType=CLOB}
-		, PROD_IMG = #{prodImg,jdbcType=VARCHAR}
+		
 		, PROD_TOTALSTOCK = #{prodTotalstock,jdbcType=NUMERIC}
 		, PROD_INSDATE = #{prodInsdate,jdbcType=DATE}
 		, PROD_PROPERSTOCK = #{prodProperstock,jdbcType=NUMERIC}
@@ -223,7 +223,9 @@
 		, PROD_QTYIN = #{prodQtyin,jdbcType=NUMERIC}
 		, PROD_QTYSALE = #{prodQtysale,jdbcType=NUMERIC}
 		, PROD_MILEAGE = #{prodMileage,jdbcType=NUMERIC}
+		<if test="@org.apache.commons.lang3.StringUtils@isNotBlank(prodImg)"> <!-- String으로 반환받는 타입이라서 isNotBlank -->
+		, PROD_IMG = #{prodImg,jdbcType=VARCHAR}
+		</if>
       WHERE PROD_ID = #{prodId}
    </update>
-	
 </mapper>
