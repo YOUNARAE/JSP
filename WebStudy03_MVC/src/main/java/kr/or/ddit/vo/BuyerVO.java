@@ -1,26 +1,20 @@
 package kr.or.ddit.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.validation.constraints.NotBlank;
-
-import kr.or.ddit.validate.InsertGroup;
-import kr.or.ddit.validate.UpdateGroup;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of="buyerId")
-public class BuyerVO  implements Serializable{
+public class BuyerVO implements Serializable{
 	private int rnum;
-	@NotBlank(groups=UpdateGroup.class)
 	private String buyerId;
-	
-	@NotBlank(groups=InsertGroup.class)
 	private String buyerName;
 	
-	@NotBlank(groups=InsertGroup.class)
 	private String buyerLgu;
+	private String lprodNm;
 	
 	private String buyerBank;
 	private String buyerBankno;
@@ -32,5 +26,8 @@ public class BuyerVO  implements Serializable{
 	private String buyerFax;
 	private String buyerMail;
 	private String buyerCharger;
-	private String buyerTelext;
+	
+	private List<ProdVO> prodList;
+	
+	private int prodCount;
 }

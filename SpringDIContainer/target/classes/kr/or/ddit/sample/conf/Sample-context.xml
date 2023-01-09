@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--	SampleDAOImpl_Oracle sampleDAOImpl_Oracle = new SampleDAOImple_Oracle();  -->
+	<bean id="sampleDAOImpl_Oracle" class="kr.or.ddit.sample.dao.SampleDAOImpl_Oracle" /> <!-- 객체생성 -->
+	<bean id="SampleDAOImpl_Postgre" class="kr.or.ddit.sample.dao.SampleDAOImpl_Postgre" />
+	<bean id="service" class="kr.or.ddit.sample.service.SampleServiceImpl"><!-- 생성자가 없어서 오류남 -->
+		<constructor-arg name="dao" ref="SampleDAOImpl_Postgre"></constructor-arg><!-- 생성자를 통해 객체를 주입했다 -->
+	</bean>
+</beans>
