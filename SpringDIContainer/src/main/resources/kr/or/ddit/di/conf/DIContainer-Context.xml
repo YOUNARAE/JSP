@@ -4,8 +4,11 @@
 	xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
-		default-lazy-init="false"	
->
+		default-lazy-init="false"
+		default-init-method="init"
+		default-destroy-method="destroy"	 
+	>
+	<!-- init,destroy 있으면 호출, 없으면 에러나는 건 아님 -->
 	
 	<!-- class=객체타입 -->
 	<bean id="sampleDAOImpl_Oracle" class="kr.or.ddit.sample.dao.SampleDAOImpl_Oracle" 

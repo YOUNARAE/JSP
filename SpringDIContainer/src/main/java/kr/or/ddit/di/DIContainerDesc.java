@@ -1,6 +1,7 @@
 package kr.or.ddit.di;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import kr.or.ddit.sample.dao.SampleDAO;
@@ -38,12 +39,18 @@ import kr.or.ddit.sample.service.SampleService;
  * 3. 빈들의 객체 생성 순서(depends-on)을 제어할 수 있는 설정이 있음.
  *    
  * 4. 컨테이너는 빈의 생명주기를 관리할 떄  callback 구조를 활용함.
- * 		
+ * 		init-method : 객체가 생성되고, 필요한 주입이 완료된 후, 마지막에 초기화 콜백 호출.
+ * 		destroy-method : 컨테이너 종료시
+ * 
+ * 5. 컨테이너에 등록된 빈에 컨테이너에 대한 참조 주소를 주입할 수 있음.
  */
 public class DIContainerDesc {
 	public static void main(String[] args) {
-		ApplicationContext context = 
+		//ConfigurableApplicationContext 턱징
+		ConfigurableApplicationContext context = 
 				new GenericXmlApplicationContext("classpath:kr/or/ddit/di/conf/DIContainer-Context.xml");//xml위치 알려주기
+		context.registerShutdownHook();
+		
 		//클래스패스의 경우에는 
 //		SampleService service =(SampleService) context.getBean("service");
 //		System.out.println(service.retrieveInformation("PK_3"));

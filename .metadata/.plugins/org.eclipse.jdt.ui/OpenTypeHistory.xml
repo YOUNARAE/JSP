@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.buyer.dao{BuyerDAO.java[BuyerDAO" modifiers="513" timestamp="1673075533221"/>
-<typeInfo handle="=WebStudy03_MVC/src\/main\/java&lt;kr.or.ddit.buyer.service{BuyerService.java[BuyerService" modifiers="513" timestamp="1673073320902"/>
+<typeInfo handle="=SpringDIContainer/D:\/B_Util\/6.maven\/.m2\/repository\/org\/springframework\/spring-core\/4.3.25.RELEASE\/spring-core-4.3.25.RELEASE.jar&lt;org.springframework.core.io(ResourceLoader.class[ResourceLoader" modifiers="1537" timestamp="1672981996765"/>
 </typeInfoHistroy>

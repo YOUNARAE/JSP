@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 생성자 주입 C, 세터 주입 P -->
+<!-- 필요할 때마다 없으면 객체를 생성하지 않는다, 필요하다면 주입할 때마다 새로운 인스턴스를 만들어야한다. -->
+	<!-- 생성자 주입구조 -->
+	<bean id="vo1" class="kr.or.ddit.di.VariousDIVO"
+		scope="prototype"
+		c:number="23"
+		c:flag="true" 
+		c:dblNumber="23.4"
+		c:ch="A"
+		c:str="STRING"
+		
+		c:fileSystemFile="file:D:/contents/images/cat1.jpg"
+		c:classPathFile="classpath:log4j2.xml"
+		
+		init-method="init"
+		destroy-method="destroy"
+	/>
+	<!-- init,destroy 있으면 호출, 없으면 에러나는 건 아님 -->
+	<!--  ref를 쓰느냐 그냥 값을 넣느냐는 등록된 값이 있느냐 없느냐의 차이인데, vo는 아무것도 없어서
+	등록된 ref중에 주입할 것이 있어야 쓰는 거다 -->
+	<bean id="vo2" class="kr.or.ddit.di.VariousDIVO" 
+		p:number="#{vo1.number + 30}"
+		p:flag="#{vo1['flag']}"
+		p:dblNumber="#{vo1.dblNumber * 100}"
+		p:ch="#{vo1['ch']}"
+		p:str="#{vo1.str * 3}"
+		
+		p:fileSystemFile="#{vo1.fileSystemFile}"
+		p:classPathFile="#{vo1['classPathFile']}"
+	/>
+	<!-- ${}이 아니고 #{}이게 el태그 구조다 -->
+</beans>

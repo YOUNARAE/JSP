@@ -20,6 +20,9 @@
 	<Logger name="kr.or.ddit" level="info" additivity="false">
       <AppenderRef ref="Console"/>
     </Logger>
+	<Logger name="org.springframework" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
     <Root level="error">
       <AppenderRef ref="Console"/>
     </Root>

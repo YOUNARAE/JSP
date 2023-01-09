@@ -1,0 +1,92 @@
+package kr.or.ddit.memo.dao;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import kr.or.ddit.vo.MemoVO;
+//뉴 키워드 없애고 싱글톤 디자인패턴 없애기
+//뉴 키워드는 컨테이너 객체를 생성할 때 딱 한번만 만든다.
+
+public class FileSystemMemoDAOImpl implements MemoDAO {
+	private static FileSystemMemoDAOImpl instance;
+	public static FileSystemMemoDAOImpl getInstance() {
+		if(instance==null) {
+			instance = new FileSystemMemoDAOImpl();
+		}
+		return instance;
+	}
+
+	//new를 할 필요 없이 리소스로 사용한다
+	//초급 프로젝트에 스프링을 붙여봐라.
+	//여기에 DB를 붙일꺼다.
+	//초급 프로젝트에 
+	private File dataBase = new File("d:/memos.dat");
+	private Map<Integer, MemoVO> memoTable; //메모의 코드값을 키로 잡음 integer
+	
+	
+	
+	public FileSystemMemoDAOImpl() {
+		//역질렬화작업을 해야함, 최초로 데이터에 접근할 때 복원하는 작업
+		try(
+			FileInputStream fis = new FileInputStream(dataBase);
+			BufferedInputStream bis = new BufferedInputStream(fis);
+			ObjectInputStream ois = new ObjectInputStream(bis);
+		){
+			memoTable = (Map<Integer, MemoVO>) ois.readObject();
+		}catch(Exception e) {
+			System.err.println(e.getMessage());
+			this.memoTable = new HashMap<>();
+		}
+	}
+	
+	@Override
+	public List<MemoVO> selectMemoList() {
+		return new ArrayList<>(memoTable.values());
+	}
+
+	@Override
+	public int insertMemo(MemoVO memo) {
+		int maxCode = memoTable.keySet().stream()
+						.mapToInt(key->key.intValue())
+						.max() // 있으면 맥스값으로 설정되고
+						.orElse(0); //없으면 엘스값으로 설정된다는 의미
+		//키를 싹 꺼내와야함,스트림으로 키 하나하나 필터를 걸 수 있다
+		
+		memo.setCode(maxCode+1);
+		memoTable.put(memo.getCode(),memo); //코드는 안에 들어있으니까 그걸 키로 잡는다
+		serializeMemoTable();
+		return 1;
+	}
+	
+	private void serializeMemoTable() {
+		try(
+			FileOutputStream fos = new FileOutputStream(dataBase);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+		){
+			oos.writeObject(memoTable);
+		}catch (Exception e){
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public int updateMemo(MemoVO memo) {
+		// 파일시스템으로 파일까지 수정해야한다. 그 작업은 serializeMemo에서 다 해줌
+		return 0;
+	}
+
+	@Override
+	public int deleteMemo(int code) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
