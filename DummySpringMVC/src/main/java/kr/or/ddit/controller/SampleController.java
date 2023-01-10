@@ -1,16 +1,27 @@
-package kr.or.ddit;
+package kr.or.ddit.controller;
 
 import java.util.Date;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.or.ddit.service.SampleService;
+
 @Controller
 public class SampleController {
-
+	@Inject
+	private SampleService service;
+	
+	@RequestMapping("/sample2")
+	public String commandHandler(HttpServletRequest req) {
+		String info = service.retrieveInfo();
+		req.setAttribute("info", info);
+		return "sample/view2";
+	}
 	//실제핸들러는 메소드가 된다.
 	//실제핸들러로 수집되야함
 	@RequestMapping(value="/sample", method=RequestMethod.GET) //이요청을 통해 이 메서드를 받겠다는 의미

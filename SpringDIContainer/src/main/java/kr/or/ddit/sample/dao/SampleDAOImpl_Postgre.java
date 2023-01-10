@@ -3,9 +3,12 @@ package kr.or.ddit.sample.dao;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Repository("postgreDAO")
 public class SampleDAOImpl_Postgre implements SampleDAO {
 
 	public void init() {

@@ -6,12 +6,16 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="orcleDB" key="selection"/>
+		<item value="dateParam" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="dataParam"/>
+			<item value="lo"/>
+			<item value="log"/>
+			<item value="UUID"/>
 			<item value="orcleDB"/>
 			<item value="Mete"/>
 			<item value="Meta"/>
@@ -23,11 +27,9 @@
 			<item value="&lt;%@page"/>
 			<item value="idx"/>
 			<item value="calendar"/>
-			<item value="jspservlet"/>
-			<item value="date"/>
-			<item value="&lt;servlet-name&gt;jsp&lt;/servlet-name&gt;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="dateParam"/>
 			<item value=""/>
 			<item value=" "/>
 			<item value="{m"/>
@@ -41,10 +43,10 @@
 		<item value="261" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item value="288" key="DIALOG_WIDTH"/>
+		<item value="214" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="1243" key="DIALOG_X_ORIGIN"/>
+		<item value="1317" key="DIALOG_X_ORIGIN"/>
 		<item value="217" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

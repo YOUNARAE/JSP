@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -11,32 +12,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.vo.MemoVO;
+import lombok.extern.slf4j.Slf4j;
 //뉴 키워드 없애고 싱글톤 디자인패턴 없애기
 //뉴 키워드는 컨테이너 객체를 생성할 때 딱 한번만 만든다.
-
+//ApplicationContextAware 이게 가지고 있는 셋 인터페이스를 자신을 넣어준다
+@Slf4j
+@Repository
 public class FileSystemMemoDAOImpl implements MemoDAO {
-	private static FileSystemMemoDAOImpl instance;
-	public static FileSystemMemoDAOImpl getInstance() {
-		if(instance==null) {
-			instance = new FileSystemMemoDAOImpl();
-		}
-		return instance;
-	}
+	@Inject
+	private ApplicationContext context;
 
-	//new를 할 필요 없이 리소스로 사용한다
-	//초급 프로젝트에 스프링을 붙여봐라.
-	//여기에 DB를 붙일꺼다.
-	//초급 프로젝트에 
-	private File dataBase = new File("d:/memos.dat");
-	private Map<Integer, MemoVO> memoTable; //메모의 코드값을 키로 잡음 integer
+//	@Override
+//	public void setApplicationContext(ApplicationContext context) throws BeansException {
+//		this.context = context;
+//	}
 	
 	
-	
-	public FileSystemMemoDAOImpl() {
-		//역질렬화작업을 해야함, 최초로 데이터에 접근할 때 복원하는 작업
+	@PostConstruct 
+	private void init() {
+//		모든 인젝션이 끝나고 얘가 동작한다.
+		dataBase = context.getResource("file:d:/memos.dat");
+		log.info("리소스 로딩 : {}", dataBase);
+//		리소스를 찾아낸 이후에 아래쪽 코드가 실행된다
 		try(
-			FileInputStream fis = new FileInputStream(dataBase);
+			InputStream fis = dataBase.getInputStream(); //1차 스트림이 필요하다.
+//			FileInputStream fis = new FileInputStream(dataBase); //위에 코드로 이 소스가 없어져도 된다.
 			BufferedInputStream bis = new BufferedInputStream(fis);
 			ObjectInputStream ois = new ObjectInputStream(bis);
 		){
@@ -45,7 +55,16 @@ public class FileSystemMemoDAOImpl implements MemoDAO {
 			System.err.println(e.getMessage());
 			this.memoTable = new HashMap<>();
 		}
+//		context에는 모든 게 주입되어있는 상태다
 	}
+//	private File dataBase = new File("d:/memos.dat");
+//	컨테이너 그 자체가 리소스 로더가 된다.
+	private Resource dataBase; //스프링에서는 파일 데이터들은 리소스로 받는다
+	private Map<Integer, MemoVO> memoTable; //메모의 코드값을 키로 잡음 integer
+	
+//	public FileSystemMemoDAOImpl() {
+//		이 생성자 필요없어짐
+//	}
 	
 	@Override
 	public List<MemoVO> selectMemoList() {
@@ -68,7 +87,8 @@ public class FileSystemMemoDAOImpl implements MemoDAO {
 	
 	private void serializeMemoTable() {
 		try(
-			FileOutputStream fos = new FileOutputStream(dataBase);
+		
+			FileOutputStream fos = new FileOutputStream(dataBase.getFile());
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 		){
 			oos.writeObject(memoTable);

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<!-- annotation 기반으로 등록과 의존 관계(주입) 설정  -->
+<!-- 스프링은 하위버전과의 호환이 좋다 -->
+	<context:annotation-config />
+	
+	<context:component-scan base-package="kr.or.ddit.sample" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+		<!-- 컨트롤러만 하나 빼고싶어질 때 -->
+		<!-- 필터를 넣을 땐 반드시 인클루드가 위에로 가야한다. -->
+	</context:component-scan>
+
+	
+<!-- 	bean 등록 시 사용 가능한 어노테이션 -->
+<!-- 	@Component : 웹에 종속되는 게 아니다 , 범용 유틸리티 bean 등록, 대부분의 어노테이션에 메타 어노테이션으로 활용됨. -->
+<!-- 	@Repository : 모델레이어에 해당, DAO -: Persistance Layer bean 등록 -->
+<!-- 	@Service : Service, Business Logic Layer에 등록 -->
+<!-- 	@Controller(*) : ontroller Layer bean 등록, HandlerMapping에 의해 수집되는 bean. -->
+<!--    필터를 껐다가 켰다가 해야되서 인클루드 익스클루드 기능이 필수적이다-->
+	
+<!-- 	@Configuration -->
+	
+	
+<!-- 	@ControllerAdvice -->
+	
+<!-- 	@RestController : 웹에서만 사용됨. -->
+<!-- 	@RestControllerAdvice -->
+	
+<!-- 	의존형 주입을 위한 어노테이션  -->
+<!-- 	@Resource : 필요하다하면 id로도 검색이 가능하고 type으로도 검색할 수 있다, id,type등의 주입 조건을 명시적으로 설정 가능하다. -->
+<!-- 	@AutoWired : type(class)를 기준으로 주입 , 동일 타입의 빈이 두 개 이상 존재하면 예외 발생.-->
+	
+<!-- 	@Inject(*) : @Auotowired 와 유사하게 동작하나, 대부분의 범용 프레임워크에서 활용 가능함. -->
+<!-- 	@Required -->
+
+</beans>

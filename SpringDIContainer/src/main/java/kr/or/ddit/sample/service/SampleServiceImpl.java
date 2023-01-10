@@ -3,15 +3,18 @@ package kr.or.ddit.sample.service;
 import java.util.Calendar;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 
 import kr.or.ddit.sample.dao.SampleDAO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Service //sampleServiceImpl 
 public class SampleServiceImpl implements SampleService, ApplicationContextAware {
 	private ConfigurableApplicationContext context;
 	private Resource log4j2xml;
@@ -48,11 +51,18 @@ public class SampleServiceImpl implements SampleService, ApplicationContextAware
 
 	// case4 : DI Container
 	// xml만 수정하면 됨 -> 재기동 필요 없음
-
 	// 기본생성자 주입
-	public SampleServiceImpl() {
+//	@Autowired//이 안에 쓰는 어노테이션은 타입으로 이 타입으로밖에 못 쓴다
+
+	
+	@javax.annotation.Resource(name="daoOracle")
+	private SampleDAO dao; // 전략객체
+
+	//이름이 위에 써서 이 이름으로 쓸 수 밖에 없다
+	public SampleServiceImpl(SampleDAO dao) {
 		super();
-		log.info("기본생성자로 {} 객체 생성", getClass().getSimpleName());
+		this.dao = dao;
+		log.info("{} 객체 생성 및 전략 객체({}) 주입", getClass().getSimpleName());
 	}
 
 	// setter 주입
@@ -62,13 +72,10 @@ public class SampleServiceImpl implements SampleService, ApplicationContextAware
 				, getClass().getSimpleName()
 				, dao.getClass().getSimpleName());
 	}
-
-	private SampleDAO dao; // 전략객체
-
-	// 생성자나 setter를 통해서 외부에서 주입받음
-	public SampleServiceImpl(SampleDAO dao) {
+//	생성자나 setter를 통해서 외부에서 주입받음
+	public SampleServiceImpl() {
 		super();
-		this.dao = dao;
+//		this.dao = dao;
 		log.info("{} 객체 생성 및 전략 객체({}) 주입", getClass().getSimpleName());
 	}
 
