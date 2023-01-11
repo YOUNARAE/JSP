@@ -6,12 +6,14 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="dateParam" key="selection"/>
+		<item value="servlet" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="servlet"/>
+			<item value="&lt;servlet-name&gt;default&lt;/servlet-name&gt;"/>
 			<item value="dataParam"/>
 			<item value="lo"/>
 			<item value="log"/>
@@ -25,8 +27,6 @@
 			<item value="compiler"/>
 			<item value="int.class"/>
 			<item value="&lt;%@page"/>
-			<item value="idx"/>
-			<item value="calendar"/>
 		</list>
 		<list key="replacehistory">
 			<item value="dateParam"/>

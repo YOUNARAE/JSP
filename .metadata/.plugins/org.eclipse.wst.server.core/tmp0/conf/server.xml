@@ -153,7 +153,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DummySpringMVC" path="/ddit" reloadable="true" source="org.eclipse.jst.jee.server:DummySpringMVC"/></Host>
+      <Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\WebStudy04_SpringMVC" path="/WebStudy04_SpringMVC" reloadable="true" source="org.eclipse.jst.jee.server:WebStudy04_SpringMVC"/><Context docBase="D:\A_TeachingMaterial\06.JSP_Spring\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Postgre_SpringMVC" path="/Postgre_SpringMVC" reloadable="true" source="org.eclipse.jst.jee.server:Postgre_SpringMVC"/></Host>
     </Engine>
   </Service>
 </Server>
