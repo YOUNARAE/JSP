@@ -165,7 +165,7 @@ public class MemberInsertController {
 			
 			viewName="member/memberForm";
 		}
-				
+//				
 		
 //		//5. 뷰 이동
 //		if(viewName.startsWith("redirect:")) {

@@ -51,3 +51,23 @@
 12월 29, 2022 09:15:53.17 NEW SESSION
 12월 29, 2022 09:15:53.17 [9352:12172:1229/091553.170:ERROR:device_event_log_impl.cc(215)] [09:15:53.170] Bluetooth: bluetooth_adapter_winrt.cc:1074 Getting Default Adapter failed.
 12월 29, 2022 09:16:50.11 [9352:9244:1229/091650.113:ERROR:util.cc(133)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+
+1월 12, 2023 09:46:25.70 NEW SESSION
+1월 12, 2023 09:46:25.70 [5024:4632:0112/094625.700:ERROR:interface_endpoint_client.cc(694)] Message 0 rejected by interface blink.mojom.WidgetHost
+1월 12, 2023 09:46:27.73 [5024:4632:0112/094627.735:ERROR:device_event_log_impl.cc(215)] [09:46:27.744] Bluetooth: bluetooth_adapter_winrt.cc:1074 Getting Default Adapter failed.
+1월 12, 2023 09:47:25.47 [5024:16872:0112/094725.473:ERROR:util.cc(133)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+1월 12, 2023 10:01:18.27 [5024:4632:0112/100118.272:ERROR:interface_endpoint_client.cc(694)] Message 1 rejected by interface blink.mojom.WidgetHost
+1월 12, 2023 10:13:08.59 [5024:4632:0112/101308.591:ERROR:interface_endpoint_client.cc(694)] Message 0 rejected by interface blink.mojom.WidgetHost
+1월 12, 2023 13:35:59.48 [5024:4632:0112/133559.488:ERROR:device_event_log_impl.cc(215)] [13:35:59.474] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: ��Ұ� �����ϴ�. (0x490)
+1월 12, 2023 13:41:14.26 [5024:4632:0112/134114.265:ERROR:interface_endpoint_client.cc(694)] Message 1 rejected by interface blink.mojom.WidgetHost
+1월 12, 2023 14:47:25.26 [5024:11464:0112/144725.260:ERROR:util.cc(133)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+
+1월 13, 2023 08:49:06.46 NEW SESSION
+1월 13, 2023 08:49:06.46 [1132:1968:0113/084906.463:ERROR:device_event_log_impl.cc(215)] [08:49:06.463] Bluetooth: bluetooth_adapter_winrt.cc:1074 Getting Default Adapter failed.
+1월 13, 2023 08:50:03.82 [1132:14012:0113/085003.824:ERROR:util.cc(134)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+1월 13, 2023 08:58:39.12 [1132:1968:0113/085839.128:ERROR:device_event_log_impl.cc(215)] [08:58:39.128] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: ��Ұ� �����ϴ�. (0x490)
+1월 13, 2023 11:08:49.30 [1132:1968:0113/110849.301:ERROR:interface_endpoint_client.cc(695)] Message 1 rejected by interface blink.mojom.WidgetHost
+1월 13, 2023 11:20:56.59 [1132:1968:0113/112056.592:ERROR:interface_endpoint_client.cc(695)] Message 1 rejected by interface blink.mojom.WidgetHost
+1월 13, 2023 13:30:19.94 [1132:1968:0113/133019.948:ERROR:device_event_log_impl.cc(215)] [13:30:19.950] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: ��Ұ� �����ϴ�. (0x490)
+1월 13, 2023 13:50:04.94 [1132:17424:0113/135004.945:ERROR:util.cc(134)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+1월 13, 2023 15:12:00.01 [1132:1968:0113/151200.017:ERROR:interface_endpoint_client.cc(695)] Message 1 rejected by interface blink.mojom.WidgetHost

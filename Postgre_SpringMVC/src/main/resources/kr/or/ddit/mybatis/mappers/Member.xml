@@ -2,12 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ddit.member.dao.MemberDAO">
 
-   <select id="selectMemberList" parameterType="String"> <!-- 값만 전달되고 이름은 의미가 없어짐, excuteUpdate로 처리되기 때문에 인서트,업데이트,딜리트 태그 든 뭐가 되도 상관없다 -->
-      select m_id, 
-      		 m_nm, 
-      		 tel, 
-      		 ymd
-        from member
-   </select>
-   
+	<select id="selectMemberList" resultType="MemberVO">
+		select MEM_ID, MEM_PASS, MEM_NAME
+		  from MEMBER	
+	</select>
+ 
 </mapper>

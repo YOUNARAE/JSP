@@ -1,36 +1,33 @@
 package kr.or.ddit.member.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import kr.or.ddit.member.service.MemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
-import kr.or.ddit.member.vo.MemberVO;
-
-@WebServlet("/member/memberList.do")
-public class MemberListController extends HttpServlet{
+import kr.or.ddit.vo.MemberVO;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
+@Controller //프론트뷰에서 실행되는 핸들러가 된다
+//@WebServlet("/member/memberList.do")
+public class MemberListController{ //완전한 POJO
 //	의존관계(점선)을 형성해준다
 	private MemberService service = new MemberServiceImpl();
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	@RequestMapping("/member/memberList.do") 
+	public String memberList(HttpServletRequest req, HttpServletResponse resp)  {
+				
+		MemberVO member = new MemberVO();
+		List<MemberVO> memberList = service.retrieveMemberList();
+		req.setAttribute("memberList", memberList);
 		
-		List<MemberVO> memberList = service.retrieveMemberList(); 
-		req.setAttribute("memberList", memberList); 
-//		4. 뷰네임결정
-		String viewName="/WEB-INF/views/member/memberList.jsp";		
-//		5.
-		if(viewName.startsWith("redirect:")) {
-			viewName = viewName.substring("redirect:".length());
-			resp.sendRedirect(req.getContextPath() + viewName);
-		}else {
-			req.getRequestDispatcher(viewName).forward(req, resp);
-		}	
+		
+		String viewName="member/memberList";
+		return viewName;
 	}
 }

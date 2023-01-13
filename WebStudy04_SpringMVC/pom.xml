@@ -45,6 +45,20 @@
 	    <artifactId>spring-webmvc</artifactId>
 	    <version>${org.springframework-version}</version>
 	</dependency>
+	<!-- Spring + DataBase + ORM -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>${org.springframework-version}</version>
+	</dependency>
+	<!-- mybatis spring 연동 모음 - ㅡ -->
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-spring</artifactId>
+	    <version>2.0.7</version>
+	</dependency>
+
+	
 	
 	<!-- 암호화지원 -->
 	<dependency>
@@ -183,15 +197,20 @@
 		<artifactId>log4jdbc-remix</artifactId>
 		<version>0.2.7</version>
 	</dependency>
-
 			
 	<!-- test framework -->
 	<dependency>
 	    <groupId>junit</groupId>
 	    <artifactId>junit</artifactId>
 	    <version>4.13.2</version>
-	    <scope>test</scope> <!-- 테스트영역에서만 사용할 수 있는 스코프 -->
+	    <scope>test</scope>
 	</dependency>
-	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${org.springframework-version}</version>
+	    <scope>test</scope>
+	</dependency>
+      
   </dependencies>
 </project>

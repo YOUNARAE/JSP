@@ -25,6 +25,14 @@
 		p:prefix="/WEB-INF/views/"
 		p:suffix=".jsp"
 	/>
+	<!-- 얘는 가장 뒤로 순서를 보내야한다. order를 설정하지 않으면 가장 우선이다 -->
+	
+	<bean id="BNVR" class="org.springframework.web.servlet.view.BeanNameViewResolver" 
+		p:order="1"
+	/> <!-- jsonView가 오더 순서를 넣어서 첫번째로 BNVR로 와서 아이디와 매치한다-->
+	
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" 
+	/>
 	
 	
 	<!-- Controller layer를 bean으로 등록하기 위한 필터링 설정 -->
@@ -55,6 +63,7 @@
 	
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0"/>
 	<!-- 0을 쓰면 캐시를 저장하지 않고 바로 클라이언트에게 보여질 수 있게 된다. -->
+	<!-- 정적 자원을 다르기 위해 일괄 관리를 하는 경우 활용 -->
 	
 <!-- <mvc:default-servlet-handler/> 디스패쳐가 받아서 톰캣한테 넘긴거라서 궁극적으로 여기서 해결한 게 아니라 넘긴 것이다. -->
 </beans>

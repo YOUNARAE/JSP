@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+<!--  로깅이란 기록을 하는 것이다 . 어디(where, appender), 어떤 형식(how pattern, layout pattern), 뭘(what, message), 누가(who, logger)-->
+<!-- appender -->
+<!-- logger -->
+<!-- layout -->
+<!-- level : 메세지 이벤트 등급***(가장중요하다), debug &lt; info &lt; warn &lt; error &lt; fatal -->
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+  	<Logger name="org.springframework" level="info" additivity="false"><!-- 스프링관련 로고 모두 출력 -->
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="org.springframework.test.web.servlet.result" level="debug" additivity="false"><!-- 스프링관련 로고 모두 출력 -->
+      <AppenderRef ref="Console"/>
+    </Logger>
+  	<Logger name="jdbc.resultsettable" level="debug" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+  	<Logger name="jdbc.sqltiming" level="debug" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+	<Logger name="kr.or.ddit" level="info" additivity="false">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Root level="error">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>
