@@ -44,6 +44,69 @@
 		         ) A
 		   WHERE RNUM BETWEEN #{startRow} AND #{endRow}
    </select>
-
+   
+   <resultMap type="BoardVO" id="boardMap" autoMapping="true">
+   		<id property="boNo" column="BOARD_NO"/> <!-- 관계테이블을 형성할 때 두 테이블 안에서 관계가 있어서 두개 다 조회되는 구조일 떄 이런 방법을 쓰면 된다.
+   		alias로 BO_NO를 바인딩하겠다 boNo로  -->
+   		<collection property="attatchList" ofType="AttatchVO" autoMapping="true" />
+   </resultMap>
+   
+   <select id="selectBoard" resultMap="boardMap" parameterType="int"><!-- parameterType="int" -->
+		SELECT
+		    a.bo_no BOARD_NO,
+		    bo_title,
+		    bo_writer,
+		    bo_ip,
+		    bo_mail,
+		    bo_pass,
+		    bo_content,
+		    bo_date,
+		    bo_hit,
+		    att_no,
+		    att_filename,
+		    att_savename,
+		    att_mime,
+		    b.BO_NO
+		FROM
+		    freeboard a LEFT OUTER JOIN ATTATCH b ON (a.bo_no=b.bo_no)
+		WHERE a.BO_NO = #{boNo}
+   </select>
+   
+   <update id="incrementHit" parameterType="int">
+   	UPDATE FREEBOARD
+   	   SET 
+   	   BO_HIT = BO_HIT + 1
+   	   WHERE BO_NO = #{boNo}
+   </update>
+   
+   <insert id="insertBoard" parameterType="BoardVO">
+   	<selectKey order="BEFORE" resultType="int" keyProperty="boNo"><!-- 이 안에서 만들어진 프라이머리키가 boNO를 호출하면서 실행될 수 있다. -->
+   		SELECT FREEBOARD_SEQ.NEXTVAL
+   		  FROM DUAL
+   	</selectKey>
+   	INSERT INTO FREEBOARD ( 
+   		bo_no,
+	    bo_title,
+	    bo_writer,
+	    bo_ip,
+	    bo_mail,
+	    bo_pass,
+	    bo_content,
+	    bo_date,
+	    bo_hit
+	) 
+	VALUES 
+	(
+		#{boNo,jdbcType=NUMERIC}
+		, #{boTitle,jdbcType=VARCHAR}
+		, #{boWriter,jdbcType=VARCHAR}
+		, #{boIp,jdbcType=VARCHAR}
+		, #{boMail,jdbcType=VARCHAR}
+		, #{boPass,jdbcType=VARCHAR}
+		, #{boContent,jdbcType=CLOB}
+		, SYSDATE
+		, 0
+	) 
+   </insert>
 
 </mapper>

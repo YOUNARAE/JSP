@@ -2,15 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>게시판목록</title>
-<jsp:include page="/includee/preScript.jsp"/>
-</head>
-<body>
-<table>
+
+<table class="table">
 <thead>
 	<th>일련번호</th>
 	<th>제목</th>
@@ -26,7 +19,12 @@
 			<c:forEach items="${boardList }" var="board">
 				<tr>
 					<td>${board.rnum }</td>
-					<td>${board.boTitle }[${board.attCount }]</td>
+					<td>
+						<c:url value="/board/boardView.do" var="viewURL">
+							<c:param name="what" value="${board.boNo }"/>
+						</c:url>
+						<a href="${viewURL }">${board.boTitle }[${board.attCount }]</a>
+					</td>
 					<td>${board.boWriter }</td>
 					<td>${board.boMail }</td>
 					<td>${board.boDate }</td>
@@ -97,6 +95,3 @@
 		return false;
 	});
 </script>
-<jsp:include page="/includee/postScript.jsp"/>
-</body>
-</html>

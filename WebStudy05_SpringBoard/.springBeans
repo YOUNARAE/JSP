@@ -10,8 +10,10 @@
 		<config>webapp/WEB-INF/spring/datasource-context.xml</config>
 		<config>webapp/WEB-INF/spring/root-context.xml</config>
 		<config>webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>webapp/WEB-INF/spring/aop-context.xml</config>
 	</configs>
 	<autoconfigs>
+		<config>webapp/WEB-INF/spring/security-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
-public class BoardListController {
+public class BoardRetrieveController {
 	
 	private final BoardService service;
 	
@@ -33,6 +33,14 @@ public class BoardListController {
 		service.retrieveBoardList(pagingVO);
 		model.addAttribute("pagingVO", pagingVO);
 		return "board/boardList";
+	}
+	
+	@RequestMapping("boardView.do")
+	public String boardView(@RequestParam(value="what", required=true) int boNo //이게 누락이되면 400번대 오류가 나타나야한다.
+			, Model model) {
+		BoardVO board = service.retrieveBoard(boNo);
+		model.addAttribute("board", board);
+		return "board/boardView";
 	}
 	
 

@@ -34,7 +34,6 @@
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" 
 	/>
 	
-	
 	<!-- Controller layer를 bean으로 등록하기 위한 필터링 설정 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>

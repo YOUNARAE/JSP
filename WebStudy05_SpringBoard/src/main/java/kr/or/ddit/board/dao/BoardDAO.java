@@ -16,6 +16,7 @@ public interface BoardDAO {
 	//단순 검색과 상세조건까지 다 받을 수 있어서 PagingVO 로 한다
 	public BoardVO selectBoard(int boNo); 
 	//널 값이 반환됐을 경우의 수가 고려되야한다. 검색했는데 없을 경우
+	public void incrementHit(int boNo); //조회수 한개를 증가시키는 것
 	public int updateBoard(BoardVO board); //boardVO를 받아야 수정이 된다
 	public int deleteBoard(int boNo);
 }

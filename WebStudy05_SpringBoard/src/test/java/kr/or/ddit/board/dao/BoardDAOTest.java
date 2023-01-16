@@ -1,6 +1,7 @@
 package kr.or.ddit.board.dao;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -28,14 +29,23 @@ public class BoardDAOTest {
 	private BoardDAO boardDAO;
 	
 	private PagingVO<BoardVO> pagingVO;
+
+	private BoardVO board;
 	
 	@Before
 	public void setUp() {
 		pagingVO = new PagingVO<>();
 		pagingVO.setCurrentPage(1);
+		
+		board = new BoardVO();
+		board.setBoWriter("작성자33");
+		board.setBoContent("내용33");
+		board.setBoIp("192.186.222");
+		board.setBoMail("내용33");
+		board.setBoDate("2023-01-16");
 	}
 
-	@Test
+//	@Test
 	public void testSelectBoardList() {
 		List<BoardVO> dataList = boardDAO.selectBoardList(pagingVO);
 		assertNotEquals(0, dataList.size());
@@ -48,7 +58,15 @@ public class BoardDAOTest {
 
 //	@Test
 	public void testSelectBoard() {
-		fail("Not yet implemented");
+		BoardVO board = boardDAO.selectBoard(224);
+		assertNotNull(board);
+		board.getAttatchList()
+			.stream().forEach(System.out::println);
+	}
+	
+	@Test
+	public void testInsertBoard() {
+		boardDAO.insertBoard(board);
 	}
 
 //	@Test

@@ -34,6 +34,14 @@
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" 
 	/>
 	
+	<!-- Tiles Context 형성 -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"
+		p:definitions="/WEB-INF/tiles/*-definitions.xml"
+		p:preparerFactoryClass="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"
+	/>
+	<bean id="TVR" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" 
+		p:order="2"
+	/>
 	
 	<!-- Controller layer를 bean으로 등록하기 위한 필터링 설정 -->
 	<context:component-scan base-package="kr.or.ddit" use-default-filters="false">
@@ -64,5 +72,7 @@
 	<mvc:resources location="/resources/" mapping="/resources/**" cache-period="0"/>
 	<!-- 0을 쓰면 캐시를 저장하지 않고 바로 클라이언트에게 보여질 수 있게 된다. -->
 	<!-- 정적 자원을 다르기 위해 일괄 관리를 하는 경우 활용 -->
-
+	
+	<!-- Custom view preparer -->
+	<bean id="boardViewPreparer" class="kr.or.ddit.board.view.preparer.boardViewPreparer" />
 </beans>
